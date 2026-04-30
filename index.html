@@ -17,31 +17,50 @@
 </head>
 
 <body>
+    <header>
+        <div class="navbar">
+            <nav>
+                <div class="container nav-content">
+                    <div class="logo">IAN MADEZ</div>
 
-    <!-- Navigation -->
-    <nav>
-        <div class="container nav-content">
-            <div class="logo">IAN MADEZ</div>
-            <div class="nav-links">
-                <a href="#work">Work</a>
-                <a href="#services">Services</a>
-                <a href="#contact">Contact</a>
+                    <!-- Desktop Links -->
+                    <div class="nav-links">
+                        <a href="#hero">Home</a>
+                        <a href="#work">Projects</a>
+                        <a href="#services">Services</a>
+                        <a href="#testimonials">Testimonials</a>
+                        <a href="#contact">Contact</a>
+                    </div>
+
+                    <div class="burger-menu" id="burger-menu">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="mobile-nav-overlay" id="mobile-nav">
+                <div class="close-menu" id="close-menu">&times;</div>
+                <a href="#hero" class="mobile-link">Home</a>
+                <a href="#work" class="mobile-link">Projects</a>
+                <a href="#testimonials" class="mobile-link">Testimonials</a>
+                <a href="#services" class="mobile-link">Services</a>
+                <a href="#contact" class="mobile-link">Contact</a>
             </div>
         </div>
-    </nav>
+    </header>
 
     <!-- Hero Section -->
-    <section class="hero">
+    <section class="hero" id="hero">
         <div class="blob"></div>
         <div class="container">
             <div class="hero-content">
                 <h3>Portfolio</h3>
+                <h2>Ian Madez</h2>
                 <h1>Creative Developer & <span class="gradient-text">UI Designer.</span></h1>
                 <br>
-                <p>
-                    I engineer and build digital assets that convert traffic into revenue. Specializing in
-                    high-performance landing pages for Restaurants, Artists, and Businesses.
-                </p>
+                <p>Specializing in premium, conversion-focused websites for startups, agencies, and businesses.</p>
                 <div class="tag-container">
                     <span class="tag">Design Engineer</span>
                     <span class="tag">React & HTML5</span>
@@ -58,9 +77,13 @@
                 <div style="text-align: center;"> <!-- Centered for visual balance -->
                     <h2>The "Design Engineer" Advantage</h2>
                     <br>
-                    <p>Most freelancers are either designers (who can't code) or developers (who can't design and use
-                        clunky templates). <strong style="color:white">I do both.</strong></p>
-                    <br>
+                    <p>Hi, my name is Ian.<br><br> If you're looking for a designer who can code or a developer who can
+                        design, I'm the one you need. Most freelancers just use a template and customize it, or a quick
+                        AI that sloppily puts everything together, which is fine for some but not for those who want a
+                        truly unique, high-end website that perfectly captures their vision.<br><br> I build every
+                        website from scratch, hand-coding every line of HTML, CSS, and JavaScript to ensure
+                        pixel-perfect design and optimal performance.
+                        <br>
                     <p>This ensures your website:</p>
                     <ul style="list-style: none; margin-top: 20px; color: var(--text-muted);">
                         <li style="margin-bottom: 10px;">✓ <strong>Executes Your Vision:</strong> Your exact aesthetic
@@ -131,7 +154,8 @@
 
             <div class="project-grid">
                 <div class="project-info">
-                    <p class="highlight">An engaging "from rescue to retail" platform for premium jerky and pickled
+                    <p class="highlight">An engaging "from rescue to retail" platform for a startup rooted in premium
+                        jerky and pickled
                         products.</p>
                     <ul class="project-feature-list">
                         <li><strong>The Challenge:</strong> Communicating a unique brand story while simultaneously
@@ -142,6 +166,7 @@
                     </ul>
                     <div class="tag-container" style="justify-content: flex-start;">
                         <span class="tag">E-Commerce</span>
+                        <span class="tag">Startup</span>
                         <span class="tag">Brand Identity</span>
                         <a class="tag" href="https://ianmadez.github.io/snacksquad-site/" target="_blank"
                             rel="noopener noreferrer">Live Site ↗</a>
@@ -182,9 +207,10 @@
                         <li><strong>Key Feature:</strong> Live "Open/Closed" status indicator based on real time.</li>
                     </ul>
                     <div class="tag-container" style="justify-content: flex-start;">
-                        <!-- Align tags left for projects -->
+                        <span class="tag">Restaurant & Dining</span>
+                        <span class="tag">Brand Identity</span>
                         <a class="tag" href="https://ianmadez.github.io/PoblanoKL/" target="_blank"
-                            rel="noopener noreferrer">Link</a>
+                            rel="noopener noreferrer">Live Site ↗</a>
                     </div>
                 </div>
 
@@ -224,8 +250,10 @@
                         <li><strong>Key Feature:</strong> "Concierge" booking modal that pre-qualifies guests.</li>
                     </ul>
                     <div class="tag-container" style="justify-content: flex-start;">
+                        <span class="tag">Restaurant & Dining</span>
+                        <span class="tag">Brand Identity</span>
                         <a class="tag" href="https://ianmadez.github.io/Upperdeck.KL/" target="_blank"
-                            rel="noopener noreferrer">Link</a>
+                            rel="noopener noreferrer">Live Site ↗</a>
                     </div>
                 </div>
 
@@ -262,11 +290,13 @@
                         <li><strong>The Challenge:</strong> Moving beyond the limitations of Spotify profiles.</li>
                         <li><strong>The Solution:</strong> A "Dark Mode" immersive identity with custom audio players.
                         </li>
-                        <li><strong>Key Feature:</strong> High-performance asset loading for heavy media files.</li>
+                        <li><strong>Key Feature:</strong> Eye-catching hero of a two-layer interactive asset with
+                            high-performance asset loading for heavy media files.</li>
                     </ul>
                     <div class="tag-container" style="justify-content: flex-start;">
-                        <a class="tag" href="https://deadspace.page.gd" target="_blank"
-                            rel="noopener noreferrer">Link</a>
+                        <span class="tag">Artist Brand</span>
+                        <a class="tag" href="https://deadspace.page.gd" target="_blank" rel="noopener noreferrer">Live
+                            Site ↗</a>
                     </div>
                 </div>
 
@@ -298,7 +328,7 @@
             <div class="project-grid">
                 <div class="project-info">
                     <p class="highlight">An online presence and ticket conversion funnel for an events/party brand,
-                        powered by a lightweight Google Sheets/Forms backend engineered for conversion and easy
+                        powered by a lightweight Google Sheets/Forms backend engineered for efficiency and easy
                         management.</p>
                     <ul class="project-feature-list">
                         <li><strong>The Challenge:</strong> Rapidly convert social traffic into ticket purchases and
@@ -309,8 +339,9 @@
                             microcopy.</li>
                     </ul>
                     <div class="tag-container" style="justify-content: flex-start;">
+                        <span class="tag">Event Space</span>
                         <a class="tag" href="https://ianmadez.github.io/midnight-anarchy/" target="_blank"
-                            rel="noopener noreferrer">Link</a>
+                            rel="noopener noreferrer">Live Site ↗</a>
                     </div>
                 </div>
 
@@ -325,6 +356,52 @@
                     <iframe src="https://ianmadez.github.io/midnight-anarchy/" class="live-preview-frame"
                         title="Midnight Anarchy Preview" loading="lazy">
                     </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section id="services">
+        <div class="container">
+            <h2 style="text-align: center;">What I Bring to Your Project</h2>
+            <div class="services">
+                <div class="service-card">
+                    <span class="number">01</span>
+                    <h4>Development</h4>
+                    <br>
+                    <p style="font-size: 0.95rem;">HTML5, CSS3, JavaScript, React. Clean, semantic code that Google SEO
+                        loves and users enjoy.</p>
+                </div>
+                <div class="service-card">
+                    <span class="number">02</span>
+                    <h4>Design</h4>
+                    <br>
+                    <p style="font-size: 0.95rem;">Figma-grade UI/UX design. I focus on eye-catching heros, typography,
+                        spacing, and visual
+                        hierarchy to create premium vibes.</p>
+                </div>
+                <div class="service-card">
+                    <span class="number">03</span>
+                    <h4>Creativity</h4>
+                    <br>
+                    <p style="font-size: 0.95rem;">A fresh, creative approach is applied to every website I build,
+                        integrating unique design elements and innovative solutions.</p>
+                </div>
+                <div class="service-card">
+                    <span class="number">04</span>
+                    <h4>Strategy</h4>
+                    <br>
+                    <p style="font-size: 0.95rem;">Conversion Rate Optimization (CRO). All elements such as buttons,
+                        calls-to-action and interactive elements are placed strategically and
+                        where they actually get clicked.</p>
+                </div>
+                <div class="service-card">
+                    <span class="number">05</span>
+                    <h4>Passion</h4>
+                    <br>
+                    <p style="font-size: 0.95rem;">I bring a genuine passion for web development and design, ensuring
+                        that every project I work on is completed with dedication and utmost attention to detail.</p>
                 </div>
             </div>
         </div>
@@ -379,32 +456,101 @@
         </div>
     </section>
 
-    <!-- Services -->
-    <section id="services">
+    <!-- Investment / Pricing Lead -->
+    <section class="investment" id="investment">
         <div class="container">
-            <h2 style="text-align: center;">What I Bring to Your Project</h2>
-            <div class="services">
-                <div class="service-card">
-                    <span class="number">01</span>
-                    <h4>Development</h4>
-                    <br>
-                    <p style="font-size: 0.95rem;">HTML5, CSS3, JavaScript, React. Clean, semantic code that Google
-                        loves and users enjoy.</p>
+            <div class="project-header" style="text-align: center; margin-bottom: 4rem;">
+                <h3>Investment</h3>
+                <h2>Find Your <span class="gradient-text">Tier</span></h2>
+                <br>
+                <p style="max-width: 650px; margin: 0 auto; color: var(--muted, #555);">
+                    I offer web-development and design packages designed to generate a return on your investment. Every
+                    project is custom-scoped based on your specific goals and the true technical footprint required.
+                </p>
+            </div>
+
+            <div class="investment-grid">
+                <!-- Tier 1 -->
+                <div class="investment-card">
+                    <h4>Landing Page</h4>
+                    <p class="investment-desc">High-converting landing pages built for immediate impact and lead
+                        capture.</p>
+
+                    <div class="scope-breakdown">
+                        <p>A "single page" funnel always includes necessary utility routing: Main Landing Page,
+                            Success/Thank You Page, Custom 404, Privacy Policy, and Terms & Conditions.</p>
+                        <span class="scope-label">Actual Scope: ~3-5 Pages</span>
+                    </div>
+
+                    <ul class="investment-features">
+                        <li class="included"><i class="fas fa-check"></i> Standard Strategy Consultation</li>
+                        <li class="included"><i class="fas fa-check"></i> Conversion-Optimized Static UI</li>
+                        <li class="included"><i class="fas fa-check"></i> Basic Analytics & Lead Routing</li>
+                        <li class="excluded"><i class="fas fa-times"></i> Content Management System (CMS)</li>
+                        <li class="excluded"><i class="fas fa-times"></i> Continuous A/B Testing & CRO</li>
+                        <li class="excluded"><i class="fas fa-times"></i> Dedicated Management Retainer</li>
+                    </ul>
+                    <div class="turnaround-time" style="color: var(--muted, #82a1d1);">2-3 Week Turnaround</div>
                 </div>
-                <div class="service-card">
-                    <span class="number">02</span>
-                    <h4>Design</h4>
-                    <br>
-                    <p style="font-size: 0.95rem;">Figma-grade UI/UX design. I focus on typography, spacing, and visual
-                        hierarchy to create premium vibes.</p>
+
+                <!-- Tier 2 (Highlighted) -->
+                <div class="investment-card featured">
+                    <div class="featured-badge">Most Popular</div>
+                    <h4>The Full Build</h4>
+                    <p class="investment-desc">Complete brand architecture, custom web platforms, and CMS integration.
+                    </p>
+
+                    <div class="scope-breakdown">
+                        <p>A standard "4-page" site (Home, About, Services, Contact) requires dynamic routing for
+                            portfolios/blogs, plus the full suite of utility, legal, and error-handling pages.</p>
+                        <span class="scope-label">Actual Scope: ~8-12 Pages</span>
+                    </div>
+
+                    <ul class="investment-features">
+                        <li class="included"><i class="fas fa-check"></i> Deep-Dive Brand Strategy Session</li>
+                        <li class="included"><i class="fas fa-check"></i> Bespoke UI/UX with Advanced Animations</li>
+                        <li class="included"><i class="fas fa-check"></i> Comprehensive SEO Setup</li>
+                        <li class="included"><i class="fas fa-check"></i> Optional CMS Integration</li>
+                        <li class="excluded"><i class="fas fa-times"></i> Continuous A/B Testing & CRO</li>
+                        <li class="excluded"><i class="fas fa-times"></i> Full-Time Management Retainer</li>
+                    </ul>
+                    <div class="turnaround-time" style="color: var(--muted, #82a1d1);">4-6 Week Turnaround</div>
                 </div>
-                <div class="service-card">
-                    <span class="number">03</span>
-                    <h4>Strategy</h4>
-                    <br>
-                    <p style="font-size: 0.95rem;">Conversion Rate Optimization (CRO). I place buttons and
-                        calls-to-action where they actually get clicked.</p>
+
+                <!-- Tier 3 -->
+                <div class="investment-card">
+                    <h4>Growth Partner</h4>
+                    <p class="investment-desc">Ongoing technical optimization, continuous scaling, and priority
+                        engineering.</p>
+
+                    <div class="scope-breakdown">
+                        <p>For brands/businesses that are in a state of growth. I will continuously analyze traffic, run
+                            A/B tests, and build out new pages or features as your operations expand.</p>
+                        <span class="scope-label">Actual Scope: Continuous</span>
+                    </div>
+
+                    <ul class="investment-features">
+                        <li class="included"><i class="fas fa-check"></i> Deep-Dive Brand Strategy Session</li>
+                        <li class="included"><i class="fas fa-check"></i> Bespoke UI/UX with Advanced Animations</li>
+                        <li class="included"><i class="fas fa-check"></i> Comprehensive SEO Setup & CMS</li>
+                        <li class="included"><i class="fas fa-check"></i> Continuous A/B Testing & CRO Tweaks</li>
+                        <li class="included"><i class="fas fa-check"></i> Active Performance & Uptime Monitoring</li>
+                        <li class="included"><i class="fas fa-check"></i> Full-Time Retainer & Priority Queue</li>
+                    </ul>
+                    <div class="turnaround-time" style="color: var(--muted, #82a1d1);">Continuous Partnership</div>
                 </div>
+            </div>
+
+            <div class="investment-cta" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; margin-top: 4rem; width: 100%;">
+                
+                <p style="text-align: center; margin-bottom: 1.5rem; font-style: italic; color: var(--fg, #eaeaea); max-width: 600px;">
+                    Not sure which tier fits your current goals? Let's figure it out together.
+                </p>
+                
+                <a href="#contact" class="btn-listen" style="background: var(--fg, #eaeaea); color: var(--bg, #0a0a0a); border: none; font-weight: 600; padding: 1.2rem 3rem; border-radius: 10px;">
+                    Request a Custom Scope
+                </a>
+                
             </div>
         </div>
     </section>
@@ -412,19 +558,15 @@
     <!-- Contact -->
     <section class="contact-section" id="contact">
         <div class="blob"></div>
-        <div class="container">
+        <div class="container"
+            style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; width: 100%;">
             <h1 style="line-height: 1;">READY TO<br><span class="gradient-text">SCALE UP?</span></h1>
             <br>
-            <p>
-                Direct communication. No middlemen. Let's discuss your project.
+            <p style="margin: 0 auto; max-width: 600px;">
+                Reach out to me for a consultation plus a free quote today. Let's discuss your project.
             </p>
 
             <div class="contact-grid">
-                <!-- WhatsApp Button -->
-                <a href="https://wa.me/60163170924" target="_blank" rel="noopener noreferrer"
-                    class="btn-contact btn-whatsapp">
-                    <i class="fab fa-whatsapp" style="font-size: 1.2rem;"></i> WhatsApp Me
-                </a>
 
                 <!-- Email Button -->
                 <a href="mailto:ianmadekufamba@gmail.com" class="btn-contact btn-email">
@@ -434,7 +576,13 @@
                 <!-- Github Button -->
                 <a href="https://github.com/ianmadez" target="_blank" rel="noopener noreferrer"
                     class="btn-contact btn-github">
-                    <i class="fab fa-github"></i> GitHub
+                    <i class="fab fa-github"></i> GitHub Repo
+                </a>
+
+                <!-- WhatsApp Button -->
+                <a href="https://wa.me/60163170924" target="_blank" rel="noopener noreferrer"
+                    class="btn-contact btn-whatsapp">
+                    <i class="fab fa-whatsapp" style="font-size: 1.2rem;"></i> WhatsApp Me
                 </a>
             </div>
         </div>
