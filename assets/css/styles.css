@@ -265,6 +265,121 @@ nav {
     background: #fff; /* White bg while loading */
 }
 
+/* ========================
+   TESTIMONIAL CAROUSEL
+========================== */
+.testimonials {
+    overflow: hidden;
+}
+
+.carousel-container {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.carousel-track {
+    display: flex;
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    will-change: transform;
+}
+
+.testimonial-card {
+    min-width: 100%;
+    padding: 3rem 2rem;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid #1a1a1a;
+    border-radius: 12px;
+    text-align: center;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+.testimonial-card:hover {
+    border-color: #333;
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.quote-icon {
+    font-size: 2rem;
+    color: var(--muted, #555);
+    margin-bottom: 1.5rem;
+}
+
+.testimonial-card p.highlight {
+    font-size: clamp(1rem, 3vw, 1.3rem);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    font-style: italic;
+    color: var(--fg, #eaeaea);
+}
+
+.client-info strong {
+    display: block;
+    font-size: 1.1rem;
+    color: var(--fg, #eaeaea);
+    font-family: 'Space Grotesk', sans-serif;
+    margin-bottom: 0.2rem;
+}
+
+.client-info span {
+    font-size: 0.85rem;
+    color: var(--muted, #555);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.carousel-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+}
+
+.carousel-btn {
+    background: transparent;
+    border: 1px solid var(--muted, #555);
+    color: var(--muted, #555);
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.carousel-btn:hover {
+    border-color: var(--fg, #eaeaea);
+    color: var(--fg, #eaeaea);
+}
+
+.carousel-dots {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--muted, #555);
+    opacity: 0.5;
+    transition: all 0.3s ease;
+}
+
+.dot:hover {
+    opacity: 0.8;
+}
+
+.dot.active {
+    background: var(--fg, #eaeaea);
+    opacity: 1;
+    transform: scale(1.2);
+}
+
 /* Services Grid */
 .services {
     display: grid;
