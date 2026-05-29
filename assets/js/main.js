@@ -114,35 +114,30 @@ document.addEventListener('DOMContentLoaded', () => {
   startAutoPlay();
 });
 
-window.addEventListener("load", (event) => {
-    gsap.registerPlugin(ScrollTrigger);
+document.addEventListener("DOMContentLoaded", (event) => {
+  // 1. Initialize GSAP instantly so elements don't stay hidden
+  gsap.registerPlugin(ScrollTrigger);
 
-  /* ==========================================================================
-     1. SMOOTH FADE-UP ANIMATIONS (For Non-Project Sections)
-     ========================================================================== */
-  // Target headers, paragraphs, and cards outside of the pinned projects
+  // Smooth Fade-ups
   const fadeElements = gsap.utils.toArray('.hero-content > *, .philosophy-grid > div, .service-card, .investment-card, .contact-section h1, .contact-section p, .contact-grid a');
 
   fadeElements.forEach((el) => {
     gsap.from(el, {
       scrollTrigger: {
         trigger: el,
-        start: "top 85%", // Triggers when the top of the element hits 85% down the viewport
-        toggleActions: "play none none reverse" // Plays on scroll down, reverses on scroll up
+        start: "top 85%",
+        toggleActions: "play none none reverse"
       },
-      y: 40, // Slides up from 40px below
+      y: 40,
       opacity: 0,
       duration: 0.8,
       ease: "power3.out",
-      stagger: 0.1 // If multiple items trigger at once, stagger them slightly
+      stagger: 0.1
     });
   });
 
-  /* ==========================================================================
-     2. PROJECT STACKING EFFECT (Desktop Only)
-     ========================================================================== */
+  // Project Stacking
   let mm = gsap.matchMedia();
-
   mm.add("(min-width: 769px)", () => {
     const projects = gsap.utils.toArray('.project');
 
@@ -154,28 +149,33 @@ window.addEventListener("load", (event) => {
         start: "top top",
         pin: !isLast,
         pinSpacing: false,
-
         animation: gsap.to(project, {
           opacity: 0.4,
           scale: 0.92,
           yPercent: -5,
           ease: "none"
         }),
-
-        // --- THE SENSITIVITY FIXES ---
-
-        // 1. Inertia: Adds a 1.2 second smoothing delay. 
-        // Increase this number to make it require more deliberate scrolling.
         scrub: 1.2,
-
-        // 2. Magnetic Snapping: Prevents the need for constant micro-adjustments
         snap: {
-          snapTo: [0, 1], // Snaps to either the start (0) or end (1) of the animation
-          duration: { min: 0.2, max: 0.6 }, // How fast the magnetic snap happens
-          delay: 0.15, // Waits 0.15s after the user stops scrolling before snapping
-          ease: "power2.inOut" // Buttery ease for the snap
+          snapTo: [0, 1],
+          duration: { min: 0.2, max: 0.6 },
+          delay: 0.15,
+          ease: "power2.inOut"
         }
       });
     });
   });
+
+  /* ==========================================================================
+     THE IFRAME FIX: Recalculate ScrollTrigger without delaying initialization
+     ========================================================================== */
+  // Refresh the math when the heavy iframes and fonts finally finish loading
+  window.addEventListener("load", () => {
+    ScrollTrigger.refresh();
+  });
+
+  // Failsafe: Force a background refresh after 1 second and 3 seconds 
+  // just in case an iframe gets stuck or lazy-loads late.
+  setTimeout(() => ScrollTrigger.refresh(), 1000);
+  setTimeout(() => ScrollTrigger.refresh(), 3000);
 });
