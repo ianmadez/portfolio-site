@@ -114,9 +114,8 @@ document.addEventListener('DOMContentLoaded', () => {
   startAutoPlay();
 });
 
-document.addEventListener("DOMContentLoaded", (event) => {
-  // Register the plugin
-  gsap.registerPlugin(ScrollTrigger);
+window.addEventListener("load", (event) => {
+    gsap.registerPlugin(ScrollTrigger);
 
   /* ==========================================================================
      1. SMOOTH FADE-UP ANIMATIONS (For Non-Project Sections)
