@@ -820,6 +820,58 @@ nav {
     border-color: #888;
 }
 
+/* ==========================================================================
+   PROJECTS: STACKING EFFECT PREP
+   ========================================================================== */
+.project {
+    /* CRITICAL: Must be a solid color so the slide-over hides the previous card */
+    background-color: var(--bg-color, #0a0a0a); /* Match your site's dark background */
+    position: relative;
+    /* Optional: Add a subtle top border or shadow to define the edge as it slides up */
+    box-shadow: 0 -10px 30px rgba(0,0,0,0.5); 
+    z-index: 1;
+}
+
+/* ==========================================================================
+   PROJECTS: STACKING EFFECT POLISH
+   ========================================================================== */
+.project {
+    background-color: var(--bg-color, #0a0a0a); 
+    position: relative;
+    box-shadow: 0 -15px 40px rgba(0,0,0,0.6); 
+    z-index: 1;
+    
+    /* CRITICAL FIX: Ensure the section fits the viewport perfectly on desktop */
+    min-height: 100vh;
+    display: flex;
+    align-items: center; 
+    padding-top: 5rem; /* Account for navbar */
+    padding-bottom: 2rem;
+    padding-bottom: 25vh;
+}
+
+.browser-window {
+    animation: floatWavy 8s ease-in-out infinite;
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.5s ease;
+    will-change: transform; 
+    
+    /* CRITICAL FIX: Constrain iframe height so it never gets cut off */
+    max-height: 65vh; 
+    display: flex;
+    flex-direction: column;
+}
+
+.live-preview-frame {
+    flex-grow: 1; /* Makes the iframe fill the remaining constrained space */
+    width: 100%;
+    border: none;
+}
+
+/* Optional: Add this class to elements in HTML you want to fade up, 
+   or we can just target them via JS. We'll use JS for ultimate smoothness. */
+.gsap-fade-up {
+    visibility: hidden; /* Prevents visual flash before GSAP loads */
+}
 
 /* Mobile Responsive */
 @media (max-width: 900px) {
