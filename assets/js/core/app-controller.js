@@ -340,8 +340,12 @@
 
             window.AudioManager.init();
 
-            if (window.AudioManager.ctx && window.AudioManager.ctx.state === "suspended") {
-                await window.AudioManager.ctx.resume();
+            try {
+                if (window.AudioManager.ctx && window.AudioManager.ctx.state === "suspended") {
+                    await window.AudioManager.ctx.resume();
+                }
+            } catch (error) {
+                console.warn("Audio resume failed, continuing boot without blocking animation:", error);
             }
 
             window.AudioManager.playSFX("assets/audio/sfx/select.mp3");
