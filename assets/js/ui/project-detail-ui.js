@@ -292,7 +292,7 @@ function confirmProjectOption() {
         return;
     }
 
-    window.showTemporaryPhaseToast(`${project.title} ${option} phase next`);
+    window.showTemporaryPhaseToast(`${project.title} ${option} phase soon`);
 }
 
 window.createProjectDetailScreen = createProjectDetailScreen;

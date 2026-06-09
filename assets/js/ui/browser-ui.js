@@ -37,7 +37,17 @@ window.createBrowserMenu = function () {
 
 window.showBrowserMenu = function () {
     const menu = window.createBrowserMenu();
+
+    gsap.killTweensOf(menu);
     menu.classList.remove("hidden");
+
+    gsap.set(menu, {
+        autoAlpha: 0,
+        opacity: 0,
+        visibility: "visible",
+        filter: "blur(8px)",
+        pointerEvents: "auto"
+    });
 
     window.AppState.setScreen("BIOS_BROWSER");
     window.AppState.browserSelection = "browser";
@@ -49,10 +59,14 @@ window.showBrowserMenu = function () {
     window.AudioManager.setBGMState("BIOS");
     window.AudioManager.playSFX("assets/audio/sfx/whoosh.mp3");
 
-    gsap.fromTo(menu,
-        { opacity: 0, filter: "blur(8px)" },
-        { opacity: 1, filter: "blur(0px)", duration: 1.2, ease: "power2.out" }
-    );
+    gsap.to(menu, {
+        autoAlpha: 1,
+        opacity: 1,
+        visibility: "visible",
+        filter: "blur(0px)",
+        duration: 1.2,
+        ease: "power2.out"
+    });
 
     const introSkipHint = document.getElementById("intro-skip-hint");
 
@@ -105,11 +119,70 @@ window.confirmBrowserSelection = function () {
 
 window.openVersionInformation = function () {
     window.AudioManager.playSFX("assets/audio/sfx/select.mp3");
-    console.log("PHASE NEXT: Open Version Information / About Me screen");
-    window.showTemporaryPhaseToast("Version Information phase next");
+    console.log("phase soon: Open Version Information / About Me screen");
+    window.showTemporaryPhaseToast("Version Information phase soon");
 };
 
 window.openSystemConfigurationPhase = function () {
-    console.log("PHASE NEXT: Open System Configuration");
-    window.showTemporaryPhaseToast("System Configuration phase next");
+    console.log("phase soon: Open System Configuration");
+    window.showTemporaryPhaseToast("System Configuration phase soon");
 };
+
+function returnToPowerButton() {
+    const browserMenu = document.getElementById("browser-menu");
+    const powerBtn = document.getElementById("power-button");
+
+    window.AppState.setScreen("TRANSITIONING");
+
+    window.AudioManager.playSFX("assets/audio/sfx/back.MP3");
+    window.AudioManager.setBGMState("SILENCE");
+
+    gsap.to([browserMenu, "#boot-canvas"], {
+        autoAlpha: 0,
+        filter: "blur(8px)",
+        duration: 0.7,
+        ease: "power2.inOut",
+        onComplete: () => {
+            if (browserMenu) {
+                gsap.set(browserMenu, {
+                    autoAlpha: 0,
+                    opacity: 0,
+                    visibility: "hidden",
+                    filter: "blur(8px)",
+                    pointerEvents: "none"
+                });
+                browserMenu.classList.add("hidden");
+            }
+
+            if (typeof window.resetBootForPowerButton === "function") {
+                window.resetBootForPowerButton();
+            }
+
+            gsap.set("#boot-canvas", {
+                autoAlpha: 0,
+                filter: "blur(0px)"
+            });
+
+            if (powerBtn) {
+                powerBtn.classList.remove("hidden");
+
+                gsap.set(powerBtn, {
+                    autoAlpha: 0,
+                    scale: 0.85,
+                    filter: "drop-shadow(0 0 15px rgba(100, 150, 255, 0.4))"
+                });
+
+                gsap.to(powerBtn, {
+                    autoAlpha: 0.85,
+                    scale: 1,
+                    duration: 0.8,
+                    ease: "power2.out"
+                });
+            }
+
+            window.AppState.setScreen("BOOT");
+        }
+    });
+}
+
+window.returnToPowerButton = returnToPowerButton;

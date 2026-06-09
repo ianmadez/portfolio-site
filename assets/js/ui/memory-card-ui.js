@@ -97,10 +97,6 @@ window.renderMemorySaveGrid = function () {
   `;
 
     window.AppState.selectedSaveIndex = 0;
-
-    requestAnimationFrame(() => {
-        window.updateMemorySaveSelection(false);
-    });
 };
 
 window.updateMemorySaveSelection = function (playSound = true) {
@@ -158,7 +154,7 @@ window.moveMemorySaveSelection = function (direction) {
 };
 
 function openSelectedProjectPlaceholder() {
-  window.openProjectDetailScreen();
+    window.openProjectDetailScreen();
 }
 
 window.openMemoryCardPhase = function () {
@@ -468,7 +464,9 @@ window.openMemorySaveGrid = function () {
 
             gsap.set("#memory-save-selector", {
                 autoAlpha: 0,
-                scale: 0.55
+                scale: 0.55,
+                left: 0,
+                top: 0
             });
         }, 1.25)
 
@@ -493,11 +491,25 @@ window.openMemorySaveGrid = function () {
             onComplete: () => loadingText.classList.add("hidden")
         }, 1.85)
 
-        .to("#memory-save-selector", {
-            autoAlpha: 0.92,
-            scale: 1,
-            duration: 0.55,
-            ease: "power2.out"
+        .add(() => {
+            window.AppState.selectedSaveIndex = 0;
+
+            requestAnimationFrame(() => {
+                updateMemorySaveSelection(false);
+
+                gsap.fromTo("#memory-save-selector",
+                    {
+                        autoAlpha: 0,
+                        scale: 0.55
+                    },
+                    {
+                        autoAlpha: 0.92,
+                        scale: 1,
+                        duration: 0.55,
+                        ease: "power2.out"
+                    }
+                );
+            });
         }, 2.12)
 };
 

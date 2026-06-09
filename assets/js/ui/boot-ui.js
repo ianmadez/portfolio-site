@@ -6,7 +6,7 @@ window.createBootHeroText = function () {
     hero = document.createElement("div");
     hero.id = "boot-hero-text";
     hero.className = "boot-hero-text hidden";
-    hero.textContent = "IAN MADEZ INTERACTIVE PORTFOLIO";
+    hero.textContent = "IAN'S INTERACTIVE PORTFOLIO";
 
     document.getElementById("boot-container").appendChild(hero);
     return hero;

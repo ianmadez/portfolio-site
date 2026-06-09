@@ -16,7 +16,7 @@ window.dispatchCommand = function (command) {
                 break;
             case "BACK":
                 window.AudioManager.playSFX("assets/audio/sfx/back.MP3");
-                console.log("Back pressed on Browser Hub");
+                window.returnToPowerButton();
                 break;
             default:
                 break;

@@ -3,6 +3,7 @@ window.triggerBootSequence = triggerBootSequence;
 window.triggerWoompCamera = triggerWoompCamera;
 window.transitionToPhase2 = transitionToPhase2;
 window.hideBootTowers = hideBootTowers;
+window.resetBootSceneForReplay = resetBootSceneForReplay;
 
 // GSAP animates this object. The render loop only reads it.
 window.PS2BootScene = {
@@ -299,6 +300,123 @@ function hideBootTowers() {
             }
         });
     });
+}
+
+function resetBootSceneForReplay() {
+    isBooting = false;
+    isPhase2 = false;
+
+    window.PS2BootScene.towerSpeed = 0.004;
+
+    if (camera) {
+        gsap.killTweensOf(camera.position);
+        camera.position.set(0, 0, 15);
+        camera.rotation.set(0, 0, 0);
+    }
+
+    if (scene) {
+        if (scene.fog) {
+            gsap.killTweensOf(scene.fog);
+            scene.fog.density = 0.04;
+        }
+
+        if (scene.background) {
+            gsap.killTweensOf(scene.background);
+            scene.background.set(0x020205);
+        }
+    }
+
+    towers.forEach(tower => {
+        gsap.killTweensOf(tower);
+        gsap.killTweensOf(tower.position);
+        gsap.killTweensOf(tower.rotation);
+        gsap.killTweensOf(tower.material);
+
+        tower.visible = false;
+        tower.material.opacity = 0;
+
+        tower.position.x = (Math.random() - 0.5) * 30;
+        tower.position.y = (Math.random() - 0.5) * 20;
+        tower.position.z = (Math.random() - 0.5) * 40 - 10;
+        tower.rotation.x = Math.random() * Math.PI;
+        tower.rotation.y = Math.random() * Math.PI;
+        tower.rotation.z = Math.random() * Math.PI;
+    });
+
+    if (bootDustGroup) {
+        bootDustGroup.visible = false;
+        bootDustGroup.rotation.set(0, 0, 0);
+
+        bootDustGroup.children.forEach(child => {
+            if (child.material) {
+                gsap.killTweensOf(child.material);
+                child.material.opacity = 0;
+            }
+        });
+    }
+
+    if (bootFairyGroup) {
+        bootFairyGroup.visible = false;
+
+        bootFairyGroup.children.forEach(fairy => {
+            const data = fairy.userData;
+
+            if (data.dot) {
+                gsap.killTweensOf(data.dot);
+                gsap.killTweensOf(data.dot.material);
+                data.dot.position.set(0, 0, 0);
+                data.dot.scale.setScalar(1);
+                data.dot.material.opacity = 0;
+            }
+
+            if (data.trail) {
+                gsap.killTweensOf(data.trail);
+                gsap.killTweensOf(data.trail.material);
+                data.trail.material.opacity = 0;
+
+                const points = data.trail.userData.points;
+                for (let i = 0; i < points.length; i++) {
+                    points[i].set(0, 0, 0);
+                }
+
+                data.trail.geometry.setFromPoints(points);
+            }
+        });
+    }
+
+    if (orbGroup) {
+        gsap.killTweensOf(orbGroup);
+        orbGroup.visible = false;
+        orbGroup.position.set(-2, 0, 0);
+        orbGroup.scale.set(0.7, 0.7, 0.7);
+        orbGroup.rotation.set(0, 0, 0);
+
+        orbGroup.children.forEach(orb => {
+            gsap.killTweensOf(orb);
+            gsap.killTweensOf(orb.material);
+
+            if (orb.material) {
+                orb.material.opacity = 0;
+            }
+        });
+    }
+
+    if (ringGroup) {
+        gsap.killTweensOf(ringGroup);
+        ringGroup.visible = false;
+        ringGroup.position.set(-2, 0, 0);
+        ringGroup.scale.set(0.7, 0.7, 0.7);
+        ringGroup.rotation.set(0, 0, 0);
+
+        ringGroup.children.forEach(ring => {
+            gsap.killTweensOf(ring);
+            gsap.killTweensOf(ring.material);
+
+            if (ring.material) {
+                ring.material.opacity = 0;
+            }
+        });
+    }
 }
 
 function fadeBootAtmosphereFast() {

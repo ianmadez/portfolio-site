@@ -1,16 +1,14 @@
 // App controller module. Initializes the application and boot sequence.
 (function () {
-    function setupBootSequence() {
+    let bootSessionId = 0;
+    let bootTimeline = null;
+    let browserRevealCall = null;
+
+    function createBootTimeline(sessionId) {
         const powerBtn = document.getElementById("power-button");
         const textContainer = document.getElementById("boot-text-container");
         const heroText = window.createBootHeroText();
-
-        window.createBrowserMenu();
-
-        const introSkipHint = window.createIntroSkipHint();
-
-        let bootSkipped = false;
-        let browserRevealCall = null;
+        const introSkipHint = document.getElementById("intro-skip-hint");
 
         textContainer.classList.remove("hidden");
         gsap.set(textContainer, {
@@ -21,24 +19,27 @@
             transformOrigin: "50% 50%"
         });
 
-        let bootStarted = false;
+        gsap.set(heroText, {
+            autoAlpha: 0,
+            scale: 0.96,
+            filter: "blur(8px)"
+        });
+        heroText.classList.add("hidden");
 
-        if (typeof window.initTowers === "function") {
-            window.initTowers();
+        if (introSkipHint) {
+            gsap.set(introSkipHint, { autoAlpha: 0 });
+            introSkipHint.classList.add("hidden");
         }
 
-        const bootTimeline = gsap.timeline({
+        const tl = gsap.timeline({
             paused: true,
             defaults: { overwrite: "auto" }
         });
 
-        bootTimeline
-            .to(powerBtn, {
-                opacity: 0,
-                scale: 0.75,
-                duration: 0.25,
-                ease: "power2.out",
-                onComplete: () => powerBtn.classList.add("hidden")
+        tl
+            .set(powerBtn, {
+                autoAlpha: 0,
+                scale: 0.75
             }, 0)
 
             .add(() => {
@@ -51,16 +52,17 @@
 
             .add(() => {
                 heroText.classList.remove("hidden");
+                gsap.set(heroText, { visibility: "visible" });
             }, 0.8)
 
             .fromTo(heroText,
-                { opacity: 0, scale: 0.96, filter: "blur(8px)" },
-                { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.8, ease: "power2.out" },
+                { autoAlpha: 0, scale: 0.96, filter: "blur(8px)" },
+                { autoAlpha: 1, scale: 1, filter: "blur(0px)", duration: 0.8, ease: "power2.out" },
                 0.8
             )
 
             .to(heroText, {
-                opacity: 0,
+                autoAlpha: 0,
                 filter: "blur(8px)",
                 duration: 0.9,
                 ease: "power2.inOut",
@@ -117,8 +119,9 @@
 
                 window.AudioManager.setBGMState("BIOS");
 
+                const thisSession = bootSessionId;
                 browserRevealCall = gsap.delayedCall(8.5, () => {
-                    if (!bootSkipped) {
+                    if (!window.__bootSessionSkipped && bootSessionId === thisSession) {
                         window.showBrowserMenu();
                     }
                 });
@@ -131,10 +134,47 @@
                 onComplete: () => textContainer.classList.add("hidden")
             }, 21.8);
 
+        return tl;
+    }
+
+    function setupBootSequence() {
+        const powerBtn = document.getElementById("power-button");
+        const textContainer = document.getElementById("boot-text-container");
+        const heroText = window.createBootHeroText();
+        const introSkipHint = window.createIntroSkipHint();
+
+        window.createBrowserMenu();
+
+        textContainer.classList.remove("hidden");
+        gsap.set(textContainer, {
+            autoAlpha: 0,
+            scale: 2,
+            y: 0,
+            force3D: true,
+            transformOrigin: "50% 50%"
+        });
+
+        gsap.set(heroText, {
+            autoAlpha: 0,
+            scale: 0.96,
+            filter: "blur(8px)"
+        });
+        heroText.classList.add("hidden");
+
+        gsap.set(introSkipHint, { autoAlpha: 0 });
+        introSkipHint.classList.add("hidden");
+
+        let bootStarted = false;
+        let bootSkipped = false;
+
+        if (typeof window.initTowers === "function") {
+            window.initTowers();
+        }
+
         function skipIntroToBrowser() {
             if (bootSkipped) return;
-
             bootSkipped = true;
+            window.__bootSessionSkipped = true;
 
             if (browserRevealCall) {
                 browserRevealCall.kill();
@@ -142,7 +182,7 @@
             }
 
             if (bootTimeline) {
-                bootTimeline.kill();
+                bootTimeline.pause(0);
             }
 
             gsap.killTweensOf([
@@ -179,9 +219,81 @@
             });
 
             window.AudioManager.setBGMState("BIOS");
-
             window.showBrowserMenu();
         }
+
+        function resetBootForPowerButton() {
+            bootStarted = false;
+            bootSkipped = false;
+            window.__bootSessionSkipped = false;
+
+            if (browserRevealCall) {
+                browserRevealCall.kill();
+                browserRevealCall = null;
+            }
+
+            gsap.killTweensOf([
+                heroText,
+                textContainer,
+                introSkipHint,
+                powerBtn,
+                "#boot-canvas",
+                "#browser-menu",
+                "#memory-card-screen",
+                "#project-detail-screen"
+            ]);
+
+            bootTimeline = null;
+
+            window.PS2BootScene.towerSpeed = 0.004;
+
+            if (typeof window.resetBootSceneForReplay === "function") {
+                window.resetBootSceneForReplay();
+            }
+
+            // Hide all secondary screens
+            const browserMenu = document.getElementById("browser-menu");
+            if (browserMenu) {
+                browserMenu.classList.add("hidden");
+                gsap.set(browserMenu, { autoAlpha: 0, filter: "blur(0px)" });
+            }
+
+            const memoryScreen = document.getElementById("memory-card-screen");
+            if (memoryScreen) {
+                memoryScreen.classList.add("hidden");
+                memoryScreen.classList.remove("grid-active");
+                gsap.set(memoryScreen, { autoAlpha: 1 });
+            }
+
+            const detailScreen = document.getElementById("project-detail-screen");
+            if (detailScreen) {
+                detailScreen.classList.add("hidden");
+                gsap.set(detailScreen, { autoAlpha: 1 });
+            }
+
+            gsap.set(heroText, {
+                autoAlpha: 0,
+                scale: 0.96,
+                filter: "blur(8px)"
+            });
+            gsap.set(textContainer, {
+                autoAlpha: 0,
+                scale: 2,
+                y: 0,
+                filter: "blur(0px)"
+            });
+
+            heroText.classList.add("hidden");
+            textContainer.classList.remove("hidden");
+            introSkipHint.classList.add("hidden");
+
+            gsap.set("#boot-canvas", {
+                autoAlpha: 0,
+                filter: "blur(0px)"
+            });
+        }
+
+        window.resetBootForPowerButton = resetBootForPowerButton;
 
         document.addEventListener("keydown", event => {
             if (!bootStarted) return;
@@ -189,16 +301,15 @@
 
             if (event.key === "Enter") {
                 event.preventDefault();
+                event.stopImmediatePropagation();
                 skipIntroToBrowser();
             }
         });
 
         introSkipHint.addEventListener("pointerdown", event => {
             event.preventDefault();
-
             if (!bootStarted) return;
             if (window.AppState.screen !== "BOOT") return;
-
             skipIntroToBrowser();
         });
 
@@ -206,6 +317,26 @@
             event.preventDefault();
             if (bootStarted) return;
             bootStarted = true;
+            bootSessionId++;
+
+            window.__bootSessionSkipped = false;
+
+            if (typeof window.resetBootSceneForReplay === "function") {
+                window.resetBootSceneForReplay();
+            }
+
+            gsap.killTweensOf(powerBtn);
+            powerBtn.classList.add("hidden");
+            gsap.set(powerBtn, {
+                autoAlpha: 0,
+                scale: 0.75,
+                clearProps: "filter"
+            });
+
+            gsap.set("#boot-canvas", {
+                autoAlpha: 1,
+                filter: "blur(0px)"
+            });
 
             window.AudioManager.init();
 
@@ -214,14 +345,16 @@
             }
 
             window.AudioManager.playSFX("assets/audio/sfx/select.mp3");
-            bootTimeline.play(0);
-            introSkipHint.classList.remove("hidden");
 
+            bootTimeline = createBootTimeline(bootSessionId);
+            bootTimeline.play(0);
+
+            introSkipHint.classList.remove("hidden");
             gsap.fromTo(introSkipHint,
                 { autoAlpha: 0 },
                 { autoAlpha: 0.38, duration: 0.8, ease: "power2.out" }
             );
-        }, { once: true });
+        });
     }
 
     document.addEventListener("DOMContentLoaded", setupBootSequence);
