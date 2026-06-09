@@ -133,7 +133,7 @@ window.updateMemorySaveSelection = function (playSound = true) {
     if (subtitle) subtitle.textContent = `${save.title} / ${save.subtitle} / ${save.size}`;
 
     if (playSound) {
-        window.AudioManager.playSFX("assets/audio/sfx/tick.MP3");
+        window.AudioManager.playSFX("assets/audio/sfx/tick.mp3");
     }
 };
 
@@ -166,7 +166,7 @@ window.openMemoryCardPhase = function () {
 
     window.AppState.setScreen("TRANSITIONING");
 
-    window.AudioManager.playSFX("assets/audio/sfx/select.MP3");
+    window.AudioManager.playSFX("assets/audio/sfx/select.mp3");
     window.AudioManager.setBGMState("BROWSER_AREA");
 
     const transition = gsap.timeline({
@@ -298,7 +298,7 @@ window.closeMemoryCardPhase = function () {
     const fadeOverlay = window.createScreenFadeOverlay();
 
     window.AppState.setScreen("TRANSITIONING");
-    window.AudioManager.playSFX("assets/audio/sfx/back.MP3");
+    window.AudioManager.playSFX("assets/audio/sfx/back.mp3");
     gsap.killTweensOf([".memory-card-halo", ".memory-card-glow"]);
 
     const transition = gsap.timeline({
@@ -408,7 +408,7 @@ window.openMemorySaveGrid = function () {
 
     document.getElementById("memory-card-screen").classList.add("grid-active");
     window.AppState.setScreen("MEMORY_CARD_LOADING");
-    window.AudioManager.playSFX("assets/audio/sfx/select.MP3");
+    window.AudioManager.playSFX("assets/audio/sfx/select.mp3");
 
     window.renderMemorySaveGrid();
 
@@ -520,7 +520,7 @@ window.closeMemorySaveGrid = function () {
     const saveGrid = document.getElementById("memory-save-grid");
 
     window.AppState.setScreen("MEMORY_CARD_LOADING");
-    window.AudioManager.playSFX("assets/audio/sfx/back.MP3");
+    window.AudioManager.playSFX("assets/audio/sfx/back.mp3");
 
     const timeline = gsap.timeline({
         defaults: { overwrite: "auto" },

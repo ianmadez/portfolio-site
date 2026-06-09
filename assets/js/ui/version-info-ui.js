@@ -146,7 +146,7 @@ window.moveVersionInfoSelection = function (direction) {
     const maxIndex = versionCurrentView === "MAIN" ? VERSION_ITEMS.length : VERSION_ITEMS[versionParentIndex].subItems.length;
     versionSelectedIndex = (versionSelectedIndex + direction + maxIndex) % maxIndex;
     renderVersionList();
-    window.AudioManager.playSFX("assets/audio/sfx/tick.MP3");
+    window.AudioManager.playSFX("assets/audio/sfx/tick.mp3");
 };
 
 window.enterVersionInfoSubMenu = function () {
@@ -157,9 +157,9 @@ window.enterVersionInfoSubMenu = function () {
         versionParentIndex = versionSelectedIndex;
         versionSelectedIndex = 0;
         renderVersionList();
-        window.AudioManager.playSFX("assets/audio/sfx/select.MP3");
+        window.AudioManager.playSFX("assets/audio/sfx/select.mp3");
     } else {
-        window.AudioManager.playSFX("assets/audio/sfx/tick.MP3");
+        window.AudioManager.playSFX("assets/audio/sfx/tick.mp3");
     }
 };
 
@@ -171,9 +171,9 @@ window.confirmVersionInfoSelection = function () {
             versionParentIndex = versionSelectedIndex;
             versionSelectedIndex = 0;
             renderVersionList();
-            window.AudioManager.playSFX("assets/audio/sfx/select.MP3");
+            window.AudioManager.playSFX("assets/audio/sfx/select.mp3");
         } else {
-            window.AudioManager.playSFX("assets/audio/sfx/tick.MP3");
+            window.AudioManager.playSFX("assets/audio/sfx/tick.mp3");
         }
     } else {
         // We are in the SUB menu. Check if the item has options.
@@ -183,7 +183,7 @@ window.confirmVersionInfoSelection = function () {
             // Toggle Edit Mode
             versionIsEditing = !versionIsEditing;
             renderVersionList();
-            window.AudioManager.playSFX("assets/audio/sfx/select.MP3");
+            window.AudioManager.playSFX("assets/audio/sfx/select.mp3");
 
             // If they just confirmed a change, log it or apply it to AppState here
             if (!versionIsEditing) {
@@ -193,7 +193,7 @@ window.confirmVersionInfoSelection = function () {
         } else {
             // Item is static text (like your CV info), cannot be edited.
             // Future feature: Open the "About Me" overlay if they click Dev's Summary info.
-            window.AudioManager.playSFX("assets/audio/sfx/tick.MP3");
+            window.AudioManager.playSFX("assets/audio/sfx/tick.mp3");
         }
     }
 };
@@ -210,7 +210,7 @@ window.openVersionInfoScreen = function () {
     const screen = createVersionInfoScreen();
     renderVersionList();
 
-    window.AudioManager.playSFX("assets/audio/sfx/select.MP3");
+    window.AudioManager.playSFX("assets/audio/sfx/select.mp3");
 
     const sysConfigPanel = document.querySelector(".system-config-panel");
     const sysConfigFooter = document.querySelector(".system-config-footer");
@@ -236,7 +236,7 @@ window.cycleVersionInfoValue = function (direction) {
     const max = currentItem.options.length;
     currentItem.activeIndex = (currentItem.activeIndex + direction + max) % max;
     renderVersionList();
-    window.AudioManager.playSFX("assets/audio/sfx/tick.MP3");
+    window.AudioManager.playSFX("assets/audio/sfx/tick.mp3");
 };
 
 window.closeVersionInfoScreen = function () {
@@ -244,7 +244,7 @@ window.closeVersionInfoScreen = function () {
         // Cancel the edit mode and revert the UI
         versionIsEditing = false;
         renderVersionList();
-        window.AudioManager.playSFX("assets/audio/sfx/back.MP3");
+        window.AudioManager.playSFX("assets/audio/sfx/back.mp3");
         return;
     }
 
@@ -252,14 +252,14 @@ window.closeVersionInfoScreen = function () {
         versionCurrentView = "MAIN";
         versionSelectedIndex = versionParentIndex;
         renderVersionList();
-        window.AudioManager.playSFX("assets/audio/sfx/back.MP3");
+        window.AudioManager.playSFX("assets/audio/sfx/back.mp3");
         return;
     }
 
     const screen = document.getElementById("version-info-screen");
     if (!screen) return;
 
-    window.AudioManager.playSFX("assets/audio/sfx/back.MP3");
+    window.AudioManager.playSFX("assets/audio/sfx/back.mp3");
 
     if (typeof window.disposeVersionScene === "function") {
         window.disposeVersionScene();

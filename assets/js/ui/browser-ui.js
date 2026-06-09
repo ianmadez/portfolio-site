@@ -127,7 +127,7 @@ function returnToPowerButton() {
 
     window.AppState.setScreen("TRANSITIONING");
 
-    window.AudioManager.playSFX("assets/audio/sfx/back.MP3");
+    window.AudioManager.playSFX("assets/audio/sfx/back.mp3");
     window.AudioManager.setBGMState("SILENCE");
 
     gsap.to([browserMenu, "#boot-canvas"], {

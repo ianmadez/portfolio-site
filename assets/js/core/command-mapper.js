@@ -15,7 +15,7 @@ window.dispatchCommand = function (command) {
                 window.openVersionInfoScreen();
                 break;
             case "BACK":
-                window.AudioManager.playSFX("assets/audio/sfx/back.MP3");
+                window.AudioManager.playSFX("assets/audio/sfx/back.mp3");
                 window.returnToPowerButton();
                 break;
             default:

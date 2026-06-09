@@ -191,7 +191,7 @@ window.moveSystemConfigSelection = function (direction) {
     window.AppState.selectedSystemConfigIndex = (window.AppState.selectedSystemConfigIndex + direction + total) % total;
 
     updateSystemConfigSelection();
-    window.AudioManager.playSFX("assets/audio/sfx/tick.MP3");
+    window.AudioManager.playSFX("assets/audio/sfx/tick.mp3");
 };
 
 window.cycleSystemConfigValue = function (direction) {
@@ -206,7 +206,7 @@ window.cycleSystemConfigValue = function (direction) {
     window.AppState.systemConfigValues[item.id] = values[nextIdx];
 
     updateSystemConfigSelection();
-    window.AudioManager.playSFX("assets/audio/sfx/tick.MP3");
+    window.AudioManager.playSFX("assets/audio/sfx/tick.mp3");
 };
 
 window.confirmSystemConfigAction = function () {
@@ -215,11 +215,11 @@ window.confirmSystemConfigAction = function () {
     if (window.AppState.systemConfigEditing) {
         window.AppState.systemConfigEditing = false;
         renderSystemConfigFooter();
-        window.AudioManager.playSFX("assets/audio/sfx/select.MP3");
+        window.AudioManager.playSFX("assets/audio/sfx/select.mp3");
     } else {
         window.AppState.systemConfigEditing = true;
         renderSystemConfigFooter();
-        window.AudioManager.playSFX("assets/audio/sfx/select.MP3");
+        window.AudioManager.playSFX("assets/audio/sfx/select.mp3");
     }
 };
 
@@ -229,7 +229,7 @@ window.cancelSystemConfigAction = function () {
     if (window.AppState.systemConfigEditing) {
         window.AppState.systemConfigEditing = false;
         renderSystemConfigFooter();
-        window.AudioManager.playSFX("assets/audio/sfx/back.MP3");
+        window.AudioManager.playSFX("assets/audio/sfx/back.mp3");
     } else {
         closeSystemConfigScreen();
     }
@@ -266,7 +266,7 @@ function closeSystemConfigScreen() {
 
     gsap.set("#boot-canvas", { autoAlpha: 1, filter: "blur(0px)" });
 
-    window.AudioManager.playSFX("assets/audio/sfx/back.MP3");
+    window.AudioManager.playSFX("assets/audio/sfx/back.mp3");
     window.AudioManager.setBGMState("BIOS");
 }
 
@@ -278,7 +278,7 @@ window.openSystemConfigScreen = function () {
 
     window.AppState.setScreen("TRANSITIONING");
 
-    window.AudioManager.playSFX("assets/audio/sfx/select.MP3");
+    window.AudioManager.playSFX("assets/audio/sfx/select.mp3");
 
     gsap.to(browserMenu, {
         autoAlpha: 0,

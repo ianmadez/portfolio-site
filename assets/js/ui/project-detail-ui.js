@@ -125,7 +125,7 @@ function updateProjectOptionSelection(playSound = true) {
     });
 
     if (playSound) {
-        window.AudioManager.playSFX("assets/audio/sfx/tick.MP3");
+        window.AudioManager.playSFX("assets/audio/sfx/tick.mp3");
     }
 }
 
@@ -154,7 +154,7 @@ function openProjectDetailScreen() {
     const detailScreen = createProjectDetailScreen();
 
     window.AppState.setScreen("TRANSITIONING");
-    window.AudioManager.playSFX("assets/audio/sfx/select.MP3");
+    window.AudioManager.playSFX("assets/audio/sfx/select.mp3");
 
     renderProjectDetailScreen();
 
@@ -236,7 +236,7 @@ function closeProjectDetailScreen() {
     const detailScreen = document.getElementById("project-detail-screen");
 
     window.AppState.setScreen("TRANSITIONING");
-    window.AudioManager.playSFX("assets/audio/sfx/back.MP3");
+    window.AudioManager.playSFX("assets/audio/sfx/back.mp3");
 
     const timeline = gsap.timeline({
         defaults: { overwrite: "auto" },
@@ -280,7 +280,7 @@ function confirmProjectOption() {
     const project = getSelectedProject();
     const option = getProjectOptions(project)[window.AppState.selectedProjectOptionIndex];
 
-    window.AudioManager.playSFX("assets/audio/sfx/select.MP3");
+    window.AudioManager.playSFX("assets/audio/sfx/select.mp3");
 
     if (option === "Live Site" && project.liveUrl) {
         window.open(project.liveUrl, "_blank", "noopener,noreferrer");
