@@ -46,7 +46,21 @@ window.AudioManager = {
     this.bgmBrowser.volume = 0.3;
   },
 
+  isMuted: false,
+
+  setMuted: function (mute) {
+    this.isMuted = mute;
+    this.bootNoise.muted = mute;
+    this.bgmBios.muted = mute;
+    this.bgmBrowser.muted = mute;
+    if (this.sfxGain) {
+      this.sfxGain.gain.value = mute ? 0 : 0.7;
+    }
+  },
+
   playSFX: function (audioFileUrl) {
+    if (this.isMuted) return;
+
     if (window.location.protocol === "file:") {
       const fallbackSound = new Audio(audioFileUrl);
       fallbackSound.volume = 0.75;

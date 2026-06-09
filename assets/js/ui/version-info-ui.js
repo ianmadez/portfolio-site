@@ -100,7 +100,7 @@ function renderVersionList() {
                 <img src="assets/images/ui/circle.png" class="footer-button-icon" alt="Circle">
                 <span>Back</span>
             </span>
-            <span class="v-footer-item" data-command="OPTIONS" style="margin-left: 40px;">
+            <span class="v-footer-item" data-command="OPTIONS">
                 <img src="assets/images/ui/triangle.png" class="footer-button-icon" alt="Triangle">
                 <span>Options</span>
             </span>
@@ -115,11 +115,11 @@ function renderVersionList() {
                     <span style="color: rgba(180, 200, 240, 0.5); font-size: 0.75em; letter-spacing: 0.05em;">◀ ▶</span>
                     <span>Change</span>
                 </span>
-                <span class="v-footer-item" data-command="CONFIRM" style="margin-left: 40px;">
+                <span class="v-footer-item" data-command="CONFIRM">
                     <img src="assets/images/ui/ex.png" class="footer-button-icon" alt="Cross">
                     <span>Confirm</span>
                 </span>
-                <span class="v-footer-item" data-command="BACK" style="margin-left: 40px;">
+                <span class="v-footer-item" data-command="BACK">
                     <img src="assets/images/ui/circle.png" class="footer-button-icon" alt="Circle">
                     <span>Cancel</span>
                 </span>
@@ -131,7 +131,7 @@ function renderVersionList() {
                     <img src="assets/images/ui/ex.png" class="footer-button-icon" alt="Cross">
                     <span>Enter</span>
                 </span>
-                <span class="v-footer-item" data-command="BACK" style="margin-left: 40px;">
+                <span class="v-footer-item" data-command="BACK">
                     <img src="assets/images/ui/circle.png" class="footer-button-icon" alt="Circle">
                     <span>Back</span>
                 </span>

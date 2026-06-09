@@ -1,8 +1,8 @@
 // System Configuration UI module. Exposes system config screen functions.
 
 const SYSTEM_CONFIG_ITEMS = [
-    { id: "clock", label: "Clock Adjustment", remap: "Availability Clock", values: ["KL", "GMT+8", "Available"], defaultIndex: 0 },
-    { id: "screen", label: "Screen Size", remap: "Viewport Mode", values: ["Standard (4:3)", "Full Screen (16:9)", "Full"], defaultIndex: 0 },
+    { id: "clock", label: "Clock Adjustment", remap: "Date Format", values: ["DD/MM/YYYY", "MM/DD/YYYY", "YYYY-MM-DD"], defaultIndex: 0 },
+    { id: "screen", label: "Screen Size", remap: "Viewport Mode", values: ["Standard (4:3)", "Full (16:9)", "Fullscreen"], defaultIndex: 0 },
     { id: "digital", label: "Digital Out (Optical)", remap: "Audio Output", values: ["On", "Off"], defaultIndex: 0 },
     { id: "component", label: "Component Video Out", remap: "Render Quality", values: ["Standard", "Performance"], defaultIndex: 0 },
     { id: "remote", label: "Remote Control", remap: "Input Mode", values: ["Classic", "Mouse"], defaultIndex: 0 },
@@ -98,7 +98,20 @@ function updateSystemConfigClock() {
     const min = String(now.getMinutes()).padStart(2, "0");
     const ss = String(now.getSeconds()).padStart(2, "0");
 
-    dateEl.textContent = `${dd}/${mm}/${yyyy}`;
+    // Check state for dynamic format
+    let format = "DD/MM/YYYY"; 
+    if (window.AppState && window.AppState.systemConfigValues) {
+        format = window.AppState.systemConfigValues["clock"] || "DD/MM/YYYY";
+    }
+
+    if (format === "MM/DD/YYYY") {
+        dateEl.textContent = `${mm}/${dd}/${yyyy}`;
+    } else if (format === "YYYY-MM-DD") {
+        dateEl.textContent = `${yyyy}-${mm}-${dd}`;
+    } else {
+        dateEl.textContent = `${dd}/${mm}/${yyyy}`; // Default
+    }
+    
     timeEl.textContent = `${hh}:${min}:${ss}`;
 }
 
@@ -194,6 +207,54 @@ window.moveSystemConfigSelection = function (direction) {
     window.AudioManager.playSFX("assets/audio/sfx/tick.mp3");
 };
 
+function applySystemConfigSideEffects(id, value) {
+    if (id === "digital") {
+        const isMuted = (value === "Off");
+        if (window.AudioManager && typeof window.AudioManager.setMuted === "function") {
+            window.AudioManager.setMuted(isMuted);
+        }
+    } else if (id === "screen") {
+        const container = document.getElementById("boot-container");
+        if (!container) return;
+
+        if (value === "Standard (4:3)") {
+            container.style.position = "fixed";
+            container.style.left = "50%";
+            container.style.top = "0";
+            container.style.transform = "translateX(-50%)";
+            container.style.width = "100%";
+            container.style.height = "100%";
+            container.style.maxWidth = "calc(100dvh * (4/3))";
+            container.style.maxHeight = "100dvh";
+            container.style.aspectRatio = "4 / 3"; // fallback
+        } else if (value === "Full Screen (16:9)") {
+            container.style.position = "fixed";
+            container.style.left = "50%";
+            container.style.top = "0";
+            container.style.transform = "translateX(-50%)";
+            container.style.width = "100%";
+            container.style.height = "100%";
+            container.style.maxWidth = "calc(100dvh * (16/9))";
+            container.style.maxHeight = "100dvh";
+            container.style.aspectRatio = "16 / 9"; // fallback
+        } else {
+            // Fullscreen - wipe all inline styles so styles.css fixed inset:0 takes over
+            container.style.position = "";
+            container.style.left = "";
+            container.style.top = "";
+            container.style.transform = "";
+            container.style.width = "";
+            container.style.height = "";
+            container.style.maxWidth = "";
+            container.style.maxHeight = "";
+            container.style.aspectRatio = "";
+        }
+        window.dispatchEvent(new Event('resize'));
+    } else if (id === "clock") {
+        updateSystemConfigClock();
+    }
+}
+
 window.cycleSystemConfigValue = function (direction) {
     ensureSystemConfigState();
 
@@ -203,7 +264,13 @@ window.cycleSystemConfigValue = function (direction) {
     const currentIdx = values.indexOf(currentVal);
     const nextIdx = (currentIdx + direction + values.length) % values.length;
 
-    window.AppState.systemConfigValues[item.id] = values[nextIdx];
+    const nextValue = values[nextIdx];
+    window.AppState.systemConfigValues[item.id] = nextValue;
+    
+    // Write data to Memory Card
+    localStorage.setItem("ps2_system_config", JSON.stringify(window.AppState.systemConfigValues));
+
+    applySystemConfigSideEffects(item.id, nextValue);
 
     updateSystemConfigSelection();
     window.AudioManager.playSFX("assets/audio/sfx/tick.mp3");

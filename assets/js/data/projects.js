@@ -1,29 +1,49 @@
 window.PROJECT_SAVES = [
   {
+    id: "system-profile",
+    title: "System Profile",
+    subtitle: "Ian Madez",
+    type: "profile",
+    icon: "assets/images/ui/browser-icon.png",
+    screenshot: "assets/images/ui/browser-icon.png", 
+    size: "12 KB",
+    status: "Online",
+    liveUrl: null,
+    repoUrl: null,
+    description: "Hi, I'm Ian Thabani Madekufamba (Ian Madez), a full-stack software developer and design engineer currently studying Information Technology at SEGi University. I specialize in building robust systems, websites and intuitive experiences in the form of platforms and website UIs. My engineering philosophy centers on creating tools that give users absolute clarity and control over their data, combining heavy-lifting backend architecture with buttery, interactive front-end experiences.<br><br>My tech stack is anchored in React, Next.js, and Expo, heavily utilizing tools like Supabase and TanStack Query to build production-ready applications. Right now, my focus is divided between several major projects: I'm developing ClariFi, a private financial OS for solo operators; building D.A.V.E, an autonomous fully offline local coding agent; and refactoring complex aviation compliance software for Level Up Aviation.<br><br>I'm also deeply interested in mobile app development and is something I am eager to dive into as one of my next projects, most probably as an extension of ClariFi.<br><br>Beyond the code, I'm driven by a love for music, making it, rapping it, singing it, that's a big part of me, hardware DIY (built my own desk once hahah), retro game emulation (especially the PS2 era), and distinct visual art styles. This portfolio is a reflection of that: merging the nostalgic, tactical feel of early 2000s console interfaces with modern web capabilities. I was no older than 6 years old (2010-2011?) experiencing this console for the first time so its something I was really inspired by while building this and hope for whoever has the same nostalgia can be hit like a heatwave by it.",
+    stack: ["Biography", "Tech Stack", "Origins"],
+    options: ["Read Bio"]
+  },
+  {
+    id: "network-config",
+    title: "Network Config",
+    subtitle: "Social Links",
+    type: "socials",
+    icon: "assets/images/ui/browser-save.png", // We can swap this for a network icon later
+    screenshot: "assets/images/ui/browser-save.png",
+    size: "8 KB",
+    status: "Connected",
+    liveUrl: null,
+    repoUrl: null,
+    description: "External connection protocols established. Select a node below to initiate a connection to my external platforms.",
+    stack: ["GitHub", "Email", "WhatsApp", "LinkedIn"],
+    options: ["Connect GitHub", "Send Email", "Open WhatsApp"]
+  },
+  {
     id: "clarifi",
     title: "ClariFi",
     subtitle: "Private Finance OS",
     type: "product",
     icon: "assets/images/ui/clarifi.png",
     screenshot: "assets/images/ui/clarifi_ss.png",
-    size: "512 KB",
+    size: "51 KB",
     status: "Live",
     liveUrl: "https://clarifi-site.vercel.app/",
     repoUrl: null,
-    description:
-      "An offline-first financial tracker built for independent creators, solo operators, and sovereign makers. Stop renting your own data.",
-    stack: [
-      "React",
-      "TypeScript",
-      "Tailwind CSS",
-      "Lucide React",
-      "React Hooks",
-      "Custom Hooks",
-      "localStorage"
-    ],
+    description: "An offline-first financial tracker built for independent creators, solo operators, and sovereign makers. Stop renting your own data.",
+    stack: ["React", "TypeScript", "Tailwind CSS", "Lucide React", "React Hooks", "Custom Hooks", "localStorage"],
     options: ["Case Study", "Live Site"]
   },
-
   {
     id: "dave",
     title: "D.A.V.E.",
@@ -31,26 +51,59 @@ window.PROJECT_SAVES = [
     type: "system",
     icon: "assets/images/ui/dave.png",
     screenshot: "assets/images/ui/dave_ss.png",
-    size: "488 KB",
+    size: "48 KB",
     status: "Live / In Progress",
     liveUrl: null,
     repoUrl: "https://github.com/ianmadez/D.A.V.E/",
-    description:
-      "An experimental autonomous local coding agent designed to execute multi-step code edits efficiently on local models as small as 7B.",
-    stack: [
-      "Python",
-      "CustomTkinter",
-      "LibCST",
-      "Pillow",
-      "requests",
-      "python-dotenv",
-      "OpenAI API",
-      "Ollama",
-      "Node.js"
-    ],
+    description: "An experimental autonomous local coding agent designed to execute multi-step code edits efficiently on local models as small as 7B.",
+    stack: ["Python", "CustomTkinter", "LibCST", "Pillow", "requests", "python-dotenv", "OpenAI API", "Ollama", "Node.js"],
     options: ["Case Study", "Repository", "Architecture"]
   },
-
+  {
+    id: "deadspace",
+    title: "deadspace",
+    subtitle: "Music Profile",
+    type: "website",
+    icon: "assets/images/ui/browser-save.png",
+    screenshot: "assets/images/ui/deady_ss.png",
+    size: "14 KB",
+    status: "Private",
+    liveUrl: "http://deadspace.page.gd",
+    repoUrl: null,
+    description: "My personal music profile page, where I share my most intimate work and art.",
+    stack: ["HTML5", "CSS3", "JavaScript"],
+    options: ["Case Study", "Live Site"]
+  },
+  {
+    id: "midnight-anarchy",
+    title: "Midnight Anarchy",
+    subtitle: "Party Launchpad",
+    type: "website",
+    icon: "assets/images/ui/browser-save.png",
+    screenshot: "assets/images/ui/mid_an_ss.png",
+    size: "32 KB",
+    status: "Private",
+    liveUrl: "https://ianmadez.github.io/midnight-anarchy/",
+    repoUrl: "https://github.com/ianmadez/midnight-anarchy",
+    description: "A launchpad and digital home for party thrower's collective, with ticketing engine wired in.",
+    stack: ["HTML5", "CSS3", "JavaScript"],
+    options: ["Case Study", "Live Site", "Repository"]
+  },
+  {
+    id: "yt-intel",
+    title: "YT Intel Tool",
+    subtitle: "LLM Analytics",
+    type: "system",
+    icon: "assets/images/ui/yt-intel.png",
+    screenshot: "assets/images/ui/yt-intel.png",
+    size: "24 KB",
+    status: "Private",
+    liveUrl: null,
+    repoUrl: null,
+    description: "A tool to collect your youtube page's intel and use LLM integration to produce actionable insights and deep metrics.",
+    stack: ["Python", "fpdf", "JavaScript", "csv"],
+    options: ["Case Study"]
+  },
   {
     id: "nanny-union",
     title: "The Nanny Union",
@@ -58,23 +111,14 @@ window.PROJECT_SAVES = [
     type: "website",
     icon: "assets/images/ui/browser-save.png",
     screenshot: "assets/images/ui/nanny_ss.png",
-    size: "221 KB",
+    size: "22 KB",
     status: "Live / Sold Project",
     liveUrl: "https://thenannyunionagency.com",
     repoUrl: null,
-    description:
-      "A premium nanny agency website for discerning families seeking high-quality childcare services.",
-    stack: [
-      "HTML",
-      "CSS",
-      "JavaScript",
-      "Vercel",
-      "Truehost",
-      "Font Awesome"
-    ],
+    description: "A premium nanny agency website for discerning families seeking high-quality childcare services.",
+    stack: ["HTML", "CSS", "JavaScript", "Vercel", "Truehost", "Font Awesome"],
     options: ["Case Study", "Live Site"]
   },
-
   {
     id: "snack-squad",
     title: "Snack Squad",
@@ -82,22 +126,14 @@ window.PROJECT_SAVES = [
     type: "website",
     icon: "assets/images/ui/browser-save.png",
     screenshot: "assets/images/ui/ss_ss.png",
-    size: "198 KB",
+    size: "19 KB",
     status: "Live",
     liveUrl: "https://ianmadez.github.io/snacksquad-site/",
     repoUrl: "https://github.com/ianmadez/snacksquad-site",
-    description:
-      "A launchpad and selling platform concept for a snack company startup.",
-    stack: [
-      "HTML",
-      "CSS",
-      "JavaScript",
-      "Font Awesome",
-      "Spline"
-    ],
+    description: "A launchpad and selling platform concept for a snack company startup.",
+    stack: ["HTML", "CSS", "JavaScript", "Font Awesome", "Spline"],
     options: ["Case Study", "Repository", "Live Site"]
   },
-
   {
     id: "poblano-kl",
     title: "Poblano KL",
@@ -105,21 +141,14 @@ window.PROJECT_SAVES = [
     type: "website",
     icon: "assets/images/ui/browser-save.png",
     screenshot: "assets/images/ui/poblano_ss.png",
-    size: "244 KB",
+    size: "24 KB",
     status: "Private",
     liveUrl: "https://ianmadez.github.io/PoblanoKL/",
     repoUrl: "https://github.com/ianmadez/PoblanoKL",
-    description:
-      "A restaurant website concept for a Mexican food spot in Old Town, Kuala Lumpur, designed with warm visuals and direct customer action in mind.",
-    stack: [
-      "HTML",
-      "CSS",
-      "JavaScript",
-      "Font Awesome"
-    ],
+    description: "A restaurant website concept for a Mexican food spot in Old Town, Kuala Lumpur, designed with warm visuals and direct customer action in mind.",
+    stack: ["HTML", "CSS", "JavaScript", "Font Awesome"],
     options: ["Case Study", "Repository", "Live Site"]
   },
-
   {
     id: "upperdeck-kl",
     title: "Upperdeck KL",
@@ -127,18 +156,12 @@ window.PROJECT_SAVES = [
     type: "website",
     icon: "assets/images/ui/browser-save.png",
     screenshot: "assets/images/ui/upperdeck_ss.png",
-    size: "276 KB",
+    size: "27 KB",
     status: "Private",
     liveUrl: "https://ianmadez.github.io/Upperdeck.KL/",
     repoUrl: "https://github.com/ianmadez/Upperdeck.KL",
-    description:
-      "A restaurant website concept for a more refined Kuala Lumpur dining experience, focused on atmosphere, presentation, and simple booking flow.",
-    stack: [
-      "HTML",
-      "CSS",
-      "JavaScript",
-      "Font Awesome"
-    ],
+    description: "A restaurant website concept for a more refined Kuala Lumpur dining experience, focused on atmosphere, presentation, and simple booking flow.",
+    stack: ["HTML", "CSS", "JavaScript", "Font Awesome"],
     options: ["Case Study", "Repository", "Live Site"]
   }
 ];

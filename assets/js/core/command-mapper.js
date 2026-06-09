@@ -156,7 +156,24 @@ window.dispatchCommand = function (command) {
                     break;
 
                 case "DISPLAY":
-                    if (window.showTemporaryPhaseToast) window.showTemporaryPhaseToast("Display settings toggled");
+                    const crtElements = document.querySelectorAll(".crt-grain, .crt-scanlines");
+                    let isOff = false;
+                    
+                    crtElements.forEach(el => {
+                        // Toggle display state safely without needing CSS edits
+                        if (el.style.display === "none") {
+                            el.style.display = "block";
+                            isOff = false;
+                        } else {
+                            el.style.display = "none";
+                            isOff = true;
+                        }
+                    });
+
+                    window.AudioManager.playSFX("assets/audio/sfx/tick.mp3");
+                    if (window.showTemporaryPhaseToast) {
+                        window.showTemporaryPhaseToast(isOff ? "CRT Filters: OFF" : "CRT Filters: ON");
+                    }
                     break;
 
                 case "VERSION":

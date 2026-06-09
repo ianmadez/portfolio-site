@@ -384,11 +384,11 @@ body {
 }
 
 .browser-footer .footer-item:first-child {
-    left: 38%;
+    left: 32%;
 }
 
 .browser-footer .footer-item.version-item {
-    left: 63%;
+    left: 57%;
 }
 
 .browser-footer .footer-item:hover {
@@ -642,7 +642,7 @@ body {
     transform: translateX(-50%);
     display: flex;
     align-items: center;
-    gap: clamp(44px, 7vw, 110px);
+    gap: clamp(32px, 4%, 80px);
     color: rgba(38, 38, 38, 0.78);
     font-size: clamp(1.15rem, 2.4vw, 2.6rem);
     font-weight: 700;
@@ -837,6 +837,59 @@ body {
     color: rgba(35, 35, 35, 0.72);
 }
 
+/* PS2 Save Grid Scrolling Prep */
+.memory-card-grid {
+    max-height: 45vh; /* Keep the grid bounded */
+    overflow-y: scroll; /* Allow internal scrolling */
+    scrollbar-width: none; /* Hide scrollbar Firefox */
+    -ms-overflow-style: none;  /* Hide scrollbar IE 10+ */
+    scroll-behavior: smooth;
+}
+.memory-card-grid::-webkit-scrollbar {
+    display: none; /* Hide scrollbar Chrome/Safari */
+}
+
+.memory-save-grid {
+    overflow: visible;
+}
+
+/* Limit the size of the Project Preview Image */
+.project-preview-image {
+    max-width: 35vh; 
+    max-height: 35vh;
+    object-fit: contain;
+}
+
+/* Spinning Disc Animation */
+.spin-disc {
+    animation: spin-cd 0.1s linear infinite;
+    border-radius: 70%; /* Just in case */
+}
+
+@keyframes spin-cd {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Make long Bio descriptions scrollable */
+.project-description-container {
+    max-height: 25vh;
+    overflow-y: auto;
+    padding-right: 15px;
+    margin-bottom: 15px;
+}
+/* Retro custom scrollbar for the text box */
+.project-description-container::-webkit-scrollbar {
+    width: 6px;
+}
+.project-description-container::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+}
+.project-description-container::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 3px;
+}
+
 /* =========================================
    PHASE 2D: RAINBOW PROJECT OPTIONS SCREEN
    ========================================= */
@@ -960,6 +1013,8 @@ body {
 .project-detail-description {
     margin: 0.9rem auto 0;
     max-width: 660px;
+    max-height: 6em; /* Crops the text exactly, without gradients */
+    overflow: hidden; /* Strict clip, NO web scrollbars */
     font-size: clamp(0.78rem, 1.2vw, 1rem);
     line-height: 1.25;
     color: rgba(35, 35, 35, 0.74);
@@ -1039,7 +1094,7 @@ body {
     transform: translateX(-50%);
     display: flex;
     align-items: center;
-    gap: clamp(45px, 7vw, 105px);
+    gap: clamp(32px, 4%, 80px);
     color: rgba(35, 35, 35, 0.74);
     font-size: clamp(1.1rem, 2.25vw, 2.4rem);
     font-weight: 800;
@@ -1284,7 +1339,7 @@ body {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     align-items: center;
-    padding: 0 4.8vw;
+    padding: 0 4%;
     color: rgba(242, 242, 246, 0.86);
     font-size: clamp(1.05rem, 1.75vw, 1.75rem);
     font-weight: 700;
@@ -1295,7 +1350,7 @@ body {
 
 .system-config-footer-inner.editing {
     grid-template-columns: repeat(3, 1fr);
-    padding: 0 21vw;
+    padding: 0 12%;
 }
 
 .system-config-footer-item {
@@ -1303,6 +1358,8 @@ body {
     display: flex;
     align-items: center;
     gap: 9px;
+    white-space: nowrap;
+    flex-shrink: 0;
     pointer-events: auto;
     opacity: 0.88;
     cursor: pointer;
@@ -1321,6 +1378,8 @@ body {
     color: rgba(180, 200, 240, 0.5);
     font-size: 0.75em;
     letter-spacing: 0.05em;
+    white-space: nowrap;
+    display: inline-block;
 }
 
 /* =========================================
@@ -1434,6 +1493,7 @@ body {
     transform: translateX(-50%);
     display: flex;
     align-items: center;
+    gap: 40px;
     color: rgba(230, 230, 235, 0.78);
     font-weight: 700;
     font-size: clamp(1.1rem, 2.25vw, 2.4rem);

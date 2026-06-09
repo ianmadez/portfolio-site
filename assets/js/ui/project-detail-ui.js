@@ -83,10 +83,26 @@ function renderProjectDetailScreen() {
     preview.src = imageSrc;
     preview.alt = `${project.title} preview`;
 
+    // Only spin the specific System Profile CD
+    if (project.id === "system-profile") {
+        preview.classList.add("spin-disc");
+    } else {
+        preview.classList.remove("spin-disc");
+    }
+
     title.textContent = project.title;
     subtitle.textContent = project.subtitle;
     meta.textContent = `${project.status} / ${project.size}`;
-    description.textContent = project.description;
+    
+    // Wrap in an inner div for GSAP sliding, cleanly parsing <br> tags
+    description.innerHTML = `<div id="desc-inner">${project.description}</div>`;
+    
+    // Reset inner scroll position on load
+    const inner = document.getElementById("desc-inner");
+    if (inner) {
+        inner._bioOffset = 0;
+        gsap.set(inner, { y: 0 });
+    }
 
     stack.innerHTML = project.stack
         .slice(0, 7)
@@ -281,6 +297,25 @@ function confirmProjectOption() {
     const option = getProjectOptions(project)[window.AppState.selectedProjectOptionIndex];
 
     window.AudioManager.playSFX("assets/audio/sfx/select.mp3");
+
+    // Handle GSAP sliding for the Bio Text (no native scrolling)
+    if (option === "Read Bio") {
+        const descBox = document.getElementById("project-detail-description");
+        const inner = document.getElementById("desc-inner");
+        
+        if (descBox && inner && inner.scrollHeight > descBox.clientHeight) {
+            const maxShift = -(inner.scrollHeight - descBox.clientHeight);
+            // Toggle between top and bottom
+            inner._bioOffset = inner._bioOffset === 0 ? maxShift : 0;
+            
+            gsap.to(inner, { 
+                y: inner._bioOffset, 
+                duration: 0.6, 
+                ease: "power2.inOut" 
+            });
+        }
+        return;
+    }
 
     if (option === "Live Site" && project.liveUrl) {
         window.open(project.liveUrl, "_blank", "noopener,noreferrer");

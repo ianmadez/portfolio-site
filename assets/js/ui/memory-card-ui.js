@@ -97,6 +97,13 @@ window.renderMemorySaveGrid = function () {
   `;
 
     window.AppState.selectedSaveIndex = 0;
+
+    // Reset Grid Y offset on open
+    const gridEl = document.getElementById("memory-save-grid");
+    if (gridEl) {
+        gridEl._gridYOffset = 0;
+        gsap.set(gridEl, { y: 0 });
+    }
 };
 
 window.updateMemorySaveSelection = function (playSound = true) {
@@ -125,6 +132,40 @@ window.updateMemorySaveSelection = function (playSound = true) {
         duration: 0.28,
         ease: "power3.out"
     });
+
+    // GSAP translate-Y scroll for the grid (no web scrollbar)
+    const gridContainer = document.getElementById("memory-save-grid");
+    if (gridContainer && active) {
+        const containerHeight = gridContainer.clientHeight;
+        const itemTop = active.offsetTop;
+        const itemHeight = active.offsetHeight;
+        // Approximate scroll bounds
+        const maxY = -(gridContainer.scrollHeight - containerHeight + 20);
+
+        if (!gridContainer._gridYOffset) gridContainer._gridYOffset = 0;
+        let targetY = gridContainer._gridYOffset;
+
+        // If item goes below the bottom edge, shift grid up
+        if (itemTop + itemHeight > containerHeight - gridContainer._gridYOffset - 20) {
+            targetY = containerHeight - itemTop - itemHeight - 20;
+        }
+
+        // If item goes above the top edge, shift grid down
+        if (itemTop < -gridContainer._gridYOffset + 20) {
+            targetY = -itemTop + 20;
+        }
+
+        targetY = Math.min(0, Math.max(maxY, targetY));
+
+        if (targetY !== gridContainer._gridYOffset) {
+            gridContainer._gridYOffset = targetY;
+            gsap.to(gridContainer, {
+                y: targetY,
+                duration: 0.28,
+                ease: "power2.out"
+            });
+        }
+    }
 
     const title = document.getElementById("memory-save-title");
     const subtitle = document.getElementById("memory-save-subtitle");

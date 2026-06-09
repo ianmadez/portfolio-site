@@ -137,7 +137,45 @@
         return tl;
     }
 
+    function loadAndApplySettings() {
+        const saved = localStorage.getItem("ps2_system_config");
+        if (saved) {
+            try {
+                const parsed = JSON.parse(saved);
+                if (!window.AppState) window.AppState = {};
+                window.AppState.systemConfigValues = parsed;
+
+                const screen = parsed["screen"];
+                const container = document.getElementById("boot-container");
+                if (container && screen) {
+                    if (screen === "Standard (4:3)") {
+                        container.style.position = "fixed";
+                        container.style.left = "50%";
+                        container.style.top = "0";
+                        container.style.transform = "translateX(-50%)";
+                        container.style.width = "100%";
+                        container.style.height = "100%";
+                        container.style.maxWidth = "calc(100dvh * (4/3))";
+                        container.style.maxHeight = "100dvh";
+                        container.style.aspectRatio = "4 / 3";
+                    } else if (screen === "Full Screen (16:9)") {
+                        container.style.position = "fixed";
+                        container.style.left = "50%";
+                        container.style.top = "0";
+                        container.style.transform = "translateX(-50%)";
+                        container.style.width = "100%";
+                        container.style.height = "100%";
+                        container.style.maxWidth = "calc(100dvh * (16/9))";
+                        container.style.maxHeight = "100dvh";
+                        container.style.aspectRatio = "16 / 9";
+                    }
+                }
+            } catch (e) { console.error("Memory Card corrupted:", e); }
+        }
+    }
+
     function setupBootSequence() {
+        loadAndApplySettings();
         const powerBtn = document.getElementById("power-button");
         const textContainer = document.getElementById("boot-text-container");
         const heroText = window.createBootHeroText();
@@ -343,6 +381,11 @@
             });
 
             window.AudioManager.init();
+
+            // Load memory card audio preference
+            if (window.AppState && window.AppState.systemConfigValues && window.AppState.systemConfigValues["digital"] === "Off") {
+                window.AudioManager.setMuted(true);
+            }
 
             try {
                 if (window.AudioManager.ctx && window.AudioManager.ctx.state === "suspended") {
