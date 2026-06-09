@@ -117,15 +117,8 @@ window.confirmBrowserSelection = function () {
     }
 };
 
-window.openVersionInformation = function () {
-    window.AudioManager.playSFX("assets/audio/sfx/select.mp3");
-    console.log("phase soon: Open Version Information / About Me screen");
-    window.showTemporaryPhaseToast("Version Information phase soon");
-};
-
 window.openSystemConfigurationPhase = function () {
-    console.log("phase soon: Open System Configuration");
-    window.showTemporaryPhaseToast("System Configuration phase soon");
+    window.openSystemConfigScreen();
 };
 
 function returnToPowerButton() {

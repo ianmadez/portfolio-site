@@ -4,6 +4,9 @@ window.AppState = {
   browserSelection: "browser",
   selectedSaveIndex: 0,
   selectedProjectOptionIndex: 0,
+  selectedSystemConfigIndex: 0,
+  systemConfigEditing: false,
+  systemConfigValues: {},
 
   setScreen(nextScreen) {
     this.screen = nextScreen;

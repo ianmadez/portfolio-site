@@ -320,7 +320,11 @@
             bootSessionId++;
 
             window.__bootSessionSkipped = false;
-
+            // Request fullscreen on touch devices (non-blocking)
+            if (window.matchMedia("(pointer: coarse)").matches && document.documentElement.requestFullscreen) {
+                try { await document.documentElement.requestFullscreen(); }
+                catch (e) { /* fullscreen not supported or denied, continue boot */ }
+            }
             if (typeof window.resetBootSceneForReplay === "function") {
                 window.resetBootSceneForReplay();
             }

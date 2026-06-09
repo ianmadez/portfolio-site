@@ -2,6 +2,8 @@
     --ps2-blue: #003399;
     --ps2-black: #050505;
     --text-glow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.4);
+    --safe-top: env(safe-area-inset-top, 0px);
+    --safe-bottom: env(safe-area-inset-bottom, 0px);
 }
 
 * {
@@ -11,6 +13,7 @@
     /* Optional: Hide cursor globally later, but keep for dev */
 }
 
+html,
 html,
 body {
     width: 100%;
@@ -364,7 +367,7 @@ body {
     border: 0;
     background: transparent;
     position: absolute;
-    bottom: 10%;
+    bottom: calc(10% + var(--safe-bottom));
     display: flex;
     align-items: center;
     gap: 10px;
@@ -635,7 +638,7 @@ body {
     position: absolute;
     z-index: 3;
     left: 50%;
-    bottom: 6.5%;
+    bottom: calc(6.5% + var(--safe-bottom));
     transform: translateX(-50%);
     display: flex;
     align-items: center;
@@ -1032,7 +1035,7 @@ body {
     position: absolute;
     z-index: 5;
     left: 50%;
-    bottom: 6.5%;
+    bottom: calc(6.5% + var(--safe-bottom));
     transform: translateX(-50%);
     display: flex;
     align-items: center;
@@ -1060,6 +1063,395 @@ body {
 .project-footer-item:active {
     transform: scale(0.96);
 }
+
+/* =========================================
+   PHASE 3A: SYSTEM CONFIGURATION
+   ========================================= */
+
+.system-config-screen {
+    position: absolute;
+    inset: 0;
+    z-index: 50;
+    pointer-events: auto;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+.system-config-panel {
+    position: absolute;
+    left: 4vw;
+    right: 4vw;
+    top: 5vh;
+    bottom: 6vh;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at 45% 50%, rgba(0, 0, 0, 0.85) 0%, rgba(20, 18, 40, 0.4) 45%, transparent 70%),
+        linear-gradient(115deg, #2f2a4a 0%, #1c1830 50%, #100d1c 100%);
+    border: 1px solid rgba(120, 110, 160, 0.22);
+    box-shadow:
+        0 0 0 2px rgba(0, 0, 0, 0.6),
+        inset 0 0 90px rgba(100, 90, 150, 0.05),
+        inset -90px 0 160px rgba(0, 0, 0, 0.3);
+}
+
+.system-config-panel::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 30;
+    background:
+        linear-gradient(rgba(255, 255, 255, 0.025) 50%, rgba(0, 0, 0, 0.055) 50%),
+        radial-gradient(circle at 50% 50%, transparent 54%, rgba(0, 0, 0, 0.20) 100%);
+    background-size: 100% 3px, 100% 100%;
+    mix-blend-mode: multiply;
+    opacity: 0.55;
+}
+
+.system-config-date,
+.system-config-time {
+    position: absolute;
+    z-index: 24;
+    top: 6.2%;
+    color: rgba(245, 245, 248, 0.88);
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: clamp(1.4rem, 2.8vw, 3.05rem);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    text-shadow:
+        2px 2px 0 rgba(0, 0, 0, 0.72),
+        0 0 7px rgba(255, 255, 255, 0.18);
+    pointer-events: none;
+}
+
+.system-config-date {
+    left: 4.2%;
+}
+
+.system-config-time {
+    right: 5.2%;
+}
+
+.system-config-3d-mount {
+    position: absolute;
+    z-index: 4;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.system-config-3d-mount canvas {
+    position: absolute;
+    inset: 0;
+    width: 100% !important;
+    height: 100% !important;
+    display: block;
+}
+
+.system-config-panel.using-three .system-config-css-fallback {
+    display: none;
+}
+
+.system-config-orrery {
+    position: absolute;
+    left: 24%;
+    top: 50%;
+    width: 18vw;
+    height: 18vw;
+    max-width: 280px;
+    max-height: 280px;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.system-config-core {
+    position: absolute;
+    width: 32%;
+    height: 32%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(180, 160, 220, 0.7), rgba(120, 100, 180, 0.3) 50%, transparent 70%);
+    filter: blur(4px);
+    z-index: 2;
+    pointer-events: none;
+}
+
+.system-config-ring {
+    position: absolute;
+    width: 85%;
+    height: 85%;
+    border-radius: 50%;
+    border: 1px solid rgba(160, 140, 200, 0.15);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.system-config-cube {
+    position: absolute;
+    width: 42px;
+    height: 42px;
+    z-index: 3;
+    cursor: pointer;
+    touch-action: manipulation;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition:
+        transform 0.25s ease,
+        filter 0.25s ease,
+        box-shadow 0.25s ease;
+    background: rgba(140, 120, 190, 0.35);
+    border: 1px solid rgba(180, 160, 220, 0.25);
+    border-radius: 6px;
+    filter: brightness(0.6) saturate(0.5);
+    box-shadow: 0 0 12px rgba(100, 80, 160, 0.15);
+}
+
+.system-config-cube.active {
+    background: rgba(180, 200, 240, 0.45);
+    border-color: rgba(200, 220, 255, 0.5);
+    filter: brightness(1.2) saturate(0.9);
+    box-shadow:
+        0 0 18px rgba(150, 180, 255, 0.35),
+        0 0 40px rgba(120, 150, 255, 0.15);
+}
+
+.system-config-cube-label {
+    font-size: 0.58rem;
+    color: rgba(220, 220, 240, 0.85);
+    font-weight: 700;
+    text-align: center;
+    line-height: 1.05;
+    text-shadow: 0 0 6px rgba(200, 200, 255, 0.2);
+    pointer-events: none;
+    user-select: none;
+}
+
+.system-config-copy {
+    position: absolute;
+    z-index: 25;
+    left: 43%;
+    right: 6%;
+    top: 38%;
+    text-align: center;
+    pointer-events: none;
+}
+
+.system-config-heading {
+    font-size: clamp(1.45rem, 2.65vw, 3rem);
+    line-height: 1;
+    font-weight: 800;
+    color: rgba(210, 205, 90, 0.92);
+    text-shadow:
+        2px 2px 0 rgba(0, 0, 0, 0.72),
+        0 0 9px rgba(240, 230, 120, 0.22);
+    margin-bottom: 0.65rem;
+}
+
+.system-config-remap {
+    font-size: clamp(1.75rem, 3.25vw, 3.35rem);
+    line-height: 0.95;
+    font-weight: 800;
+    color: rgba(105, 220, 255, 0.94);
+    text-shadow:
+        2px 2px 0 rgba(0, 0, 0, 0.62),
+        0 0 11px rgba(120, 220, 255, 0.42);
+    letter-spacing: -0.035em;
+    margin-bottom: 0.35rem;
+}
+
+.system-config-value {
+    font-size: clamp(1.3rem, 2.35vw, 2.35rem);
+    line-height: 1;
+    font-weight: 700;
+    color: rgba(245, 245, 248, 0.88);
+    text-shadow:
+        2px 2px 0 rgba(0, 0, 0, 0.68),
+        0 0 8px rgba(255, 255, 255, 0.16);
+}
+
+.system-config-footer {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: calc(5.6% + var(--safe-bottom));
+    z-index: 26;
+    pointer-events: none;
+}
+
+.system-config-footer-inner {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    align-items: center;
+    padding: 0 4.8vw;
+    color: rgba(242, 242, 246, 0.86);
+    font-size: clamp(1.05rem, 1.75vw, 1.75rem);
+    font-weight: 700;
+    text-shadow:
+        2px 2px 0 rgba(0, 0, 0, 0.72),
+        0 0 7px rgba(255, 255, 255, 0.18);
+}
+
+.system-config-footer-inner.editing {
+    grid-template-columns: repeat(3, 1fr);
+    padding: 0 21vw;
+}
+
+.system-config-footer-item {
+    justify-self: center;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    pointer-events: auto;
+    opacity: 0.88;
+    cursor: pointer;
+    touch-action: manipulation;
+}
+
+.system-config-footer-item:hover {
+    opacity: 1;
+}
+
+.system-config-footer-item:active {
+    transform: scale(0.96);
+}
+
+.system-config-footer-hint {
+    color: rgba(180, 200, 240, 0.5);
+    font-size: 0.75em;
+    letter-spacing: 0.05em;
+}
+
+/* =========================================
+   PHASE 6: VERSION INFORMATION SCREEN
+   ========================================= */
+.version-info-screen {
+    position: absolute;
+    inset: 0;
+    z-index: 100;
+    background-color: #050506;
+    pointer-events: auto;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+.version-info-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: block; 
+}
+
+/* 3D Canvas Mount */
+.version-three-mount {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+}
+.version-three-canvas {
+    width: 100% !important;
+    height: 100% !important;
+    display: block;
+}
+
+/* TEXT CONTAINER (Controls the position of the entire text block)
+*/
+.version-content {
+    --label-width: clamp(180px, 25vw, 320px); /* 👈 ADJUST THIS to change the gap between labels and values */
+    position: absolute;
+    z-index: 2;
+    left: 50%; /* 👈 ADJUST THIS: Increase to push the entire text block further right */
+    right: 5%; /* Prevents text from clipping off the screen */
+    top: 28%;
+    font-size: clamp(1.2rem, 2vw, 1.8rem);
+    letter-spacing: 0.5px;
+}
+
+/* HEADER ALIGNMENT
+*/
+.version-header {
+    color: #d1b848; /* PS2 Gold */
+    font-weight: 700;
+    font-size: clamp(1.4rem, 2.5vw, 2.2rem);
+    margin-bottom: 35px;
+    text-align: center;
+    text-shadow: 0 0 8px rgba(209, 184, 72, 0.3);
+}
+
+.version-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.v-row-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.v-row {
+    display: flex;
+    align-items: flex-start;
+    padding: 3px 0;
+}
+
+/* RIGHT-ALIGNED LABELS 
+*/
+.v-label {
+    width: var(--label-width);
+    text-align: right; /* Authentic PS2 alignment */
+    padding-right: 25px; /* The gap between label and value */
+    color: #6e8e96;
+    font-weight: 700;
+    white-space: nowrap; 
+    flex-shrink: 0; /* Prevents text from squishing and clashing */
+}
+
+.v-row.active .v-label {
+    color: #62c3d0; 
+}
+
+/* LEFT-ALIGNED VALUES (With Wrapping Enabled)
+*/
+.v-value {
+    flex: 1;
+    text-align: left;
+    color: #888;
+    font-weight: 700;
+    white-space: normal; /* Enables long text like the Browser description to wrap cleanly */
+    line-height: 1.25; 
+}
+
+.v-row.active .v-value {
+    color: #f2f2f2; 
+}
+
+.version-footer {
+    position: absolute;
+    bottom: calc(6.5% + var(--safe-bottom));
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    color: rgba(230, 230, 235, 0.78);
+    font-weight: 700;
+    font-size: clamp(1.1rem, 2.25vw, 2.4rem);
+    text-shadow: 2px 2px 0 rgba(255, 255, 255, 0.32), -1px -1px 0 rgba(0, 0, 0, 0.25);
+    z-index: 5;
+}
+
+.v-footer-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    opacity: 0.88;
+}
+
+.v-footer-item:hover { opacity: 1; }
+.v-footer-item:active { transform: scale(0.95); }
 
 /* =========================================
    RESPONSIVE OVERRIDES
@@ -1209,5 +1601,164 @@ body {
     .project-detail-footer {
         bottom: 6%;
         font-size: clamp(1.1rem, 5vw, 1.5rem);
+    }
+}
+
+/* =========================================
+   PHONE PORTRAIT (narrow screens under 550px)
+   ========================================= */
+@media (max-width: 550px) and (orientation: portrait) {
+    .browser-options {
+        left: 8%;
+    }
+
+    .browser-option {
+        font-size: clamp(1.75rem, 8.5vw, 2.65rem);
+        line-height: 0.94;
+    }
+
+    .browser-footer .footer-item:first-child {
+        left: 12%;
+    }
+
+    .browser-footer .footer-item.version-item {
+        left: 52%;
+    }
+
+    .memory-card-panel {
+        top: 5vh;
+        bottom: 5vh;
+    }
+
+    .memory-card-center {
+        width: 80px;
+        height: 80px;
+        top: 46%;
+    }
+
+    .memory-save-meta {
+        top: 12%;
+    }
+
+    .memory-save-grid {
+        top: 25%;
+        bottom: 16%;
+        gap: 12px 16px;
+    }
+
+    .memory-save-item {
+        width: 88px;
+        min-height: 90px;
+    }
+
+    .memory-save-selector {
+        width: 108px;
+        height: 108px;
+    }
+
+    .memory-card-footer {
+        bottom: calc(4% + var(--safe-bottom));
+        font-size: clamp(0.85rem, 4vw, 1.1rem);
+        gap: 32px;
+    }
+
+    .project-detail-panel {
+        top: 4vh;
+        bottom: 4vh;
+    }
+
+    .project-preview-wrap {
+        top: 22%;
+        width: 140px;
+        height: 110px;
+    }
+
+    .project-detail-copy {
+        top: 36%;
+    }
+
+    .project-detail-stack {
+        gap: 4px;
+        max-height: 2.4rem;
+        overflow: hidden;
+    }
+
+    .project-detail-stack span {
+        font-size: 0.58rem;
+        padding: 2px 6px;
+    }
+
+    .project-option {
+        font-size: clamp(1.2rem, 6vw, 1.6rem);
+    }
+
+    .project-detail-footer {
+        bottom: calc(3% + var(--safe-bottom));
+        font-size: clamp(0.85rem, 4vw, 1.1rem);
+        gap: 28px;
+    }
+}
+
+/* =========================================
+   PHONE LANDSCAPE (short viewports under 500px height)
+   ========================================= */
+@media (max-height: 500px) and (orientation: landscape) {
+    .browser-options {
+        left: 48%;
+        top: 40%;
+    }
+
+    .browser-option {
+        font-size: clamp(1.4rem, 3vw, 2.4rem);
+    }
+
+    .browser-footer .footer-item {
+        bottom: calc(6% + var(--safe-bottom));
+    }
+
+    .memory-card-panel {
+        top: 2vh;
+        bottom: 2vh;
+    }
+
+    .memory-card-center {
+        width: 64px;
+        height: 64px;
+    }
+
+    .memory-save-grid {
+        top: 28%;
+        bottom: 12%;
+        gap: 8px 12px;
+    }
+
+    .memory-save-selector {
+        width: 96px;
+        height: 96px;
+    }
+
+    .memory-card-footer {
+        bottom: calc(3% + var(--safe-bottom));
+        font-size: clamp(0.8rem, 3vw, 1rem);
+    }
+
+    .project-detail-panel {
+        top: 2vh;
+        bottom: 2vh;
+    }
+
+    .project-preview-wrap {
+        width: clamp(140px, 20vw, 230px);
+        height: clamp(95px, 16vw, 170px);
+        top: 28%;
+    }
+
+    .project-detail-copy {
+        top: 32%;
+    }
+
+    .project-detail-footer {
+        bottom: calc(3% + var(--safe-bottom));
+        font-size: clamp(0.8rem, 3vw, 1rem);
     }
 }

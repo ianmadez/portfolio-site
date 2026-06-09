@@ -12,7 +12,7 @@ window.dispatchCommand = function (command) {
                 window.confirmBrowserSelection();
                 break;
             case "VERSION":
-                window.openVersionInformation();
+                window.openVersionInfoScreen();
                 break;
             case "BACK":
                 window.AudioManager.playSFX("assets/audio/sfx/back.MP3");
@@ -89,6 +89,91 @@ window.dispatchCommand = function (command) {
 
         return;
     }
+
+    if (window.AppState.screen === "VERSION_INFO") {
+        switch (command) {
+            case "UP":
+                if (window.moveVersionInfoSelection) window.moveVersionInfoSelection(-1);
+                break;
+            case "DOWN":
+                if (window.moveVersionInfoSelection) window.moveVersionInfoSelection(1);
+                break;
+            case "LEFT":
+                if (window.cycleVersionInfoValue) window.cycleVersionInfoValue(-1);
+                break;
+            case "RIGHT":
+                if (window.cycleVersionInfoValue) window.cycleVersionInfoValue(1);
+                break;
+            case "CONFIRM":
+                if (window.confirmVersionInfoSelection) window.confirmVersionInfoSelection();
+                break;
+            case "VERSION":
+                if (window.enterVersionInfoSubMenu) window.enterVersionInfoSubMenu();
+                break;
+            case "BACK":
+                if (window.closeVersionInfoScreen) window.closeVersionInfoScreen();
+                break;
+        }
+        return;
+    }
+
+    if (window.AppState.screen === "SYSTEM_CONFIG") {
+        if (window.AppState.systemConfigEditing) {
+            switch (command) {
+                case "LEFT":
+                    window.cycleSystemConfigValue(-1);
+                    break;
+
+                case "RIGHT":
+                    window.cycleSystemConfigValue(1);
+                    break;
+
+                case "CONFIRM":
+                    window.confirmSystemConfigAction();
+                    break;
+
+                case "BACK":
+                    window.cancelSystemConfigAction();
+                    break;
+
+                default:
+                    break;
+            }
+        } else {
+            switch (command) {
+                case "UP":
+                case "LEFT":
+                    window.moveSystemConfigSelection(-1);
+                    break;
+
+                case "DOWN":
+                case "RIGHT":
+                    window.moveSystemConfigSelection(1);
+                    break;
+
+                case "CONFIRM":
+                    window.confirmSystemConfigAction();
+                    break;
+
+                case "DISPLAY":
+                    if (window.showTemporaryPhaseToast) window.showTemporaryPhaseToast("Display settings toggled");
+                    break;
+
+                case "VERSION":
+                    window.openVersionInfoScreen();
+                    break;
+
+                case "BACK":
+                    window.cancelSystemConfigAction();
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        return;
+    }
 };
 
 window.attachInputMapper = function () {
@@ -96,7 +181,7 @@ window.attachInputMapper = function () {
     window.__ps2InputMapperAttached = true;
 
     document.addEventListener("keydown", event => {
-        if (!["BIOS_BROWSER", "MEMORY_CARD_IDLE", "MEMORY_CARD_GRID", "PROJECT_OPTIONS"].includes(window.AppState.screen)) return;
+        if (!["BIOS_BROWSER", "MEMORY_CARD_IDLE", "MEMORY_CARD_GRID", "PROJECT_OPTIONS", "SYSTEM_CONFIG", "VERSION_INFO"].includes(window.AppState.screen)) return;
 
         const key = event.key.toLowerCase();
 
@@ -130,6 +215,11 @@ window.attachInputMapper = function () {
             window.dispatchCommand("VERSION");
         }
 
+        if (key === "square" || key === "q") {
+            event.preventDefault();
+            window.dispatchCommand("DISPLAY");
+        }
+
         if (key === "escape" || key === "backspace" || key === "o") {
             event.preventDefault();
             window.dispatchCommand("BACK");
@@ -137,7 +227,7 @@ window.attachInputMapper = function () {
     });
 
     document.addEventListener("pointerdown", event => {
-        if (!["BIOS_BROWSER", "MEMORY_CARD_IDLE", "MEMORY_CARD_GRID", "PROJECT_OPTIONS"].includes(window.AppState.screen)) return;
+        if (!["BIOS_BROWSER", "MEMORY_CARD_IDLE", "MEMORY_CARD_GRID", "PROJECT_OPTIONS", "SYSTEM_CONFIG", "VERSION_INFO"].includes(window.AppState.screen)) return;
 
         const commandButton = event.target.closest("[data-command]");
         if (commandButton) {
@@ -191,7 +281,7 @@ window.attachInputMapper = function () {
     });
 
     document.addEventListener("mouseover", event => {
-        if (!["BIOS_BROWSER", "MEMORY_CARD_GRID"].includes(window.AppState.screen)) return;
+        if (!["BIOS_BROWSER", "MEMORY_CARD_GRID", "SYSTEM_CONFIG", "VERSION_INFO"].includes(window.AppState.screen)) return;
 
         const projectOptionButton = event.target.closest("[data-project-option-index]");
         if (projectOptionButton && window.AppState.screen === "PROJECT_OPTIONS") {

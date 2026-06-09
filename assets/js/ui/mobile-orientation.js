@@ -11,7 +11,7 @@ window.initMobileOrientationToast = function () {
     const isPortrait = window.innerHeight > window.innerWidth;
     const dismissed = sessionStorage.getItem("ps2OrientationToastDismissed") === "true";
 
-    if (isMobileWidth && isPortrait && !dismissed && window.AppState.screen !== "BOOT") {
+    if (isMobileWidth && isPortrait && !dismissed) {
       toast.classList.remove("hidden");
     } else {
       toast.classList.add("hidden");
