@@ -299,14 +299,23 @@ function confirmProjectOption() {
     window.AudioManager.playSFX("assets/audio/sfx/select.mp3");
 
     // Handle GSAP sliding for the Bio Text (no native scrolling)
-    if (option === "Read Bio") {
+    if (option === "Read More") {
         const descBox = document.getElementById("project-detail-description");
         const inner = document.getElementById("desc-inner");
         
         if (descBox && inner && inner.scrollHeight > descBox.clientHeight) {
             const maxShift = -(inner.scrollHeight - descBox.clientHeight);
-            // Toggle between top and bottom
-            inner._bioOffset = inner._bioOffset === 0 ? maxShift : 0;
+            if (!inner._bioOffset) inner._bioOffset = 0;
+            
+            // Calculate step size to allow ~4 reading positions
+            const step = maxShift / 3;
+            inner._bioOffset += step;
+            
+            // If we push past the bottom limit, loop back to the top
+            // Using -5 as a tiny buffer for floating point math
+            if (inner._bioOffset < maxShift - 5) {
+                inner._bioOffset = 0;
+            }
             
             gsap.to(inner, { 
                 y: inner._bioOffset, 

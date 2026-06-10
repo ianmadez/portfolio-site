@@ -1,35 +1,5 @@
 window.PROJECT_SAVES = [
   {
-    id: "system-profile",
-    title: "System Profile",
-    subtitle: "Ian Madez",
-    type: "profile",
-    icon: "assets/images/ui/browser-icon.png",
-    screenshot: "assets/images/ui/browser-icon.png", 
-    size: "12 KB",
-    status: "Online",
-    liveUrl: null,
-    repoUrl: null,
-    description: "Hi, I'm Ian Thabani Madekufamba (Ian Madez), a full-stack software developer and design engineer currently studying Information Technology at SEGi University. I specialize in building robust systems, websites and intuitive experiences in the form of platforms and website UIs. My engineering philosophy centers on creating tools that give users absolute clarity and control over their data, combining heavy-lifting backend architecture with buttery, interactive front-end experiences.<br><br>My tech stack is anchored in React, Next.js, and Expo, heavily utilizing tools like Supabase and TanStack Query to build production-ready applications. Right now, my focus is divided between several major projects: I'm developing ClariFi, a private financial OS for solo operators; building D.A.V.E, an autonomous fully offline local coding agent; and refactoring complex aviation compliance software for Level Up Aviation.<br><br>I'm also deeply interested in mobile app development and is something I am eager to dive into as one of my next projects, most probably as an extension of ClariFi.<br><br>Beyond the code, I'm driven by a love for music, making it, rapping it, singing it, that's a big part of me, hardware DIY (built my own desk once hahah), retro game emulation (especially the PS2 era), and distinct visual art styles. This portfolio is a reflection of that: merging the nostalgic, tactical feel of early 2000s console interfaces with modern web capabilities. I was no older than 6 years old (2010-2011?) experiencing this console for the first time so its something I was really inspired by while building this and hope for whoever has the same nostalgia can be hit like a heatwave by it.",
-    stack: ["Biography", "Tech Stack", "Origins"],
-    options: ["Read Bio"]
-  },
-  {
-    id: "network-config",
-    title: "Network Config",
-    subtitle: "Social Links",
-    type: "socials",
-    icon: "assets/images/ui/browser-save.png", // We can swap this for a network icon later
-    screenshot: "assets/images/ui/browser-save.png",
-    size: "8 KB",
-    status: "Connected",
-    liveUrl: null,
-    repoUrl: null,
-    description: "External connection protocols established. Select a node below to initiate a connection to my external platforms.",
-    stack: ["GitHub", "Email", "WhatsApp", "LinkedIn"],
-    options: ["Connect GitHub", "Send Email", "Open WhatsApp"]
-  },
-  {
     id: "clarifi",
     title: "ClariFi",
     subtitle: "Private Finance OS",
@@ -163,5 +133,35 @@ window.PROJECT_SAVES = [
     description: "A restaurant website concept for a more refined Kuala Lumpur dining experience, focused on atmosphere, presentation, and simple booking flow.",
     stack: ["HTML", "CSS", "JavaScript", "Font Awesome"],
     options: ["Case Study", "Repository", "Live Site"]
+  }, 
+  {
+    id: "system-profile",
+    title: "System Profile",
+    subtitle: "Ian Madez",
+    type: "profile",
+    icon: "assets/images/ui/browser-icon.png",
+    screenshot: "assets/images/ui/browser-icon.png", 
+    size: "12 KB",
+    status: "Online",
+    liveUrl: null,
+    repoUrl: null,
+    description: "Hi, I'm Ian Thabani Madekufamba (Ian Madez), a full-stack software developer and design engineer currently studying Information Technology at SEGi University. I specialize in building robust systems, websites and intuitive experiences in the form of platforms and website UIs. My engineering philosophy centers on creating tools that give users absolute clarity and control over their data, combining heavy-lifting backend architecture with buttery, interactive front-end experiences.<br><br>My tech stack is anchored in React, Next.js, and Expo, heavily utilizing tools like Supabase and TanStack Query to build production-ready applications. Right now, my focus is divided between several major projects: I'm developing ClariFi, a private financial OS for solo operators; building D.A.V.E, an autonomous fully offline local coding agent; and refactoring complex aviation compliance software for Level Up Aviation.<br><br>I'm also deeply interested in mobile app development and is something I am eager to dive into as one of my next projects, most probably as an extension of ClariFi.<br><br>Beyond the code, I'm driven by a love for music, making it, rapping it, singing it, that's a big part of me, hardware DIY (built my own desk once hahah), retro game emulation (especially the PS2 era), and distinct visual art styles. This portfolio is a reflection of that: merging the nostalgic, tactical feel of early 2000s console interfaces with modern web capabilities. I was no older than 6 years old (2010-2011?) experiencing this console for the first time so its something I was really inspired by while building this and hope for whoever has the same nostalgia can be hit like a heatwave by it.",
+    stack: ["Biography", "Tech Stack", "Origins"],
+    options: ["Read More"]
+  },
+  {
+    id: "network-config",
+    title: "Network Config",
+    subtitle: "Social Links",
+    type: "socials",
+    icon: "assets/images/ui/social.png", // We can swap this for a network icon later
+    screenshot: "assets/images/ui/social.png",
+    size: "8 KB",
+    status: "Connected",
+    liveUrl: null,
+    repoUrl: null,
+    description: "External connection protocols established. Select a node below to initiate a connection to my external platforms.",
+    stack: ["GitHub", "Email", "WhatsApp", "LinkedIn"],
+    options: ["Connect GitHub", "Send Email", "Open WhatsApp"]
   }
 ];

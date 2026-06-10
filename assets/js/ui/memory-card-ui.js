@@ -14,14 +14,16 @@ window.createMemoryCardScreen = function () {
 
       <div class="memory-save-meta">
         <div id="memory-save-title">Memory Card (PS2)/1</div>
-        <div id="memory-save-subtitle">733 KB Free</div>
+        <div id="memory-save-subtitle">7,911 KB Free</div>
       </div>
 
       <div id="memory-loading-text" class="memory-loading-text hidden">
         Now loading<span class="loading-dots">...</span>
       </div>
 
-      <div id="memory-save-grid" class="memory-save-grid hidden" aria-label="Project saves"></div>
+      <div id="memory-save-grid-wrapper" class="memory-save-grid-wrapper hidden">
+        <div id="memory-save-grid" class="memory-save-grid" aria-label="Project saves"></div>
+      </div>
 
       <div class="memory-card-center">
       <img
@@ -134,9 +136,10 @@ window.updateMemorySaveSelection = function (playSound = true) {
     });
 
     // GSAP translate-Y scroll for the grid (no web scrollbar)
+    const gridWrapper = document.getElementById("memory-save-grid-wrapper");
     const gridContainer = document.getElementById("memory-save-grid");
-    if (gridContainer && active) {
-        const containerHeight = gridContainer.clientHeight;
+    if (gridContainer && gridWrapper && active) {
+        const containerHeight = gridWrapper.clientHeight;
         const itemTop = active.offsetTop;
         const itemHeight = active.offsetHeight;
         // Approximate scroll bounds
@@ -170,7 +173,7 @@ window.updateMemorySaveSelection = function (playSound = true) {
     const title = document.getElementById("memory-save-title");
     const subtitle = document.getElementById("memory-save-subtitle");
 
-    if (title) title.textContent = "Portfolio Saves";
+    if (title) title.textContent = "My Projects";
     if (subtitle) subtitle.textContent = `${save.title} / ${save.subtitle} / ${save.size}`;
 
     if (playSound) {
@@ -194,8 +197,16 @@ window.moveMemorySaveSelection = function (direction) {
     window.updateMemorySaveSelection(true);
 };
 
-function openSelectedProjectPlaceholder() {
-    window.openProjectDetailScreen();
+window.openSelectedProjectPlaceholder = function() {
+    const project = window.PROJECT_SAVES[window.AppState.selectedSaveIndex];
+    
+    if (project.id === "network-config") {
+        if (typeof window.openNetworkConfigScreen === "function") {
+            window.openNetworkConfigScreen();
+        }
+    } else {
+        window.openProjectDetailScreen();
+    }
 }
 
 window.openMemoryCardPhase = function () {
@@ -495,7 +506,7 @@ window.openMemorySaveGrid = function () {
         )
 
         .add(() => {
-            saveGrid.classList.remove("hidden");
+            document.getElementById("memory-save-grid-wrapper").classList.remove("hidden");
             gsap.set(".memory-save-item", {
                 autoAlpha: 0,
                 scale: 0.72,
@@ -566,7 +577,7 @@ window.closeMemorySaveGrid = function () {
     const timeline = gsap.timeline({
         defaults: { overwrite: "auto" },
         onComplete: () => {
-            saveGrid.classList.add("hidden");
+            document.getElementById("memory-save-grid-wrapper").classList.add("hidden");
             gsap.set(cardCenter, {
                 autoAlpha: 1,
                 scale: 1,
@@ -578,8 +589,8 @@ window.closeMemorySaveGrid = function () {
                 clearProps: "transform"
             });
 
-            document.getElementById("memory-save-title").textContent = "Portfolio Saves";
-            document.getElementById("memory-save-subtitle").textContent = "733 KB Free";
+            document.getElementById("memory-save-title").textContent = "My Projects";
+            document.getElementById("memory-save-subtitle").textContent = "7,911 KB Free";
             document.getElementById("memory-card-screen").classList.remove("grid-active");
             window.AppState.setScreen("MEMORY_CARD_IDLE");
         }

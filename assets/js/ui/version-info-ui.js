@@ -4,6 +4,7 @@ const VERSION_ITEMS = [
     {
         label: "Console", value: "Portfolio OS / Diagnosis", subItems: [
             { label: "Diagnosis", value: "Off", options: ["On", "Off"], activeIndex: 0 },
+            { label: "Curriculum Vitae", value: "Press ✖ / Enter to Open", action: "DOWNLOAD_CV" }
         ]
     },
     {
@@ -23,7 +24,16 @@ const VERSION_ITEMS = [
             { label: "Disc Speed", value: "Fast", options: ["Fast", "Slow"], activeIndex: 0 }
         ]
     },
-    { label: "DVD Player", value: "GSAP Motion Engine", subItems: [] }
+    { label: "DVD Player", value: "GSAP Motion Engine", subItems: [] },
+    {
+        label: "Site Controls", value: "Controller / Keyboard", subItems: [
+            { label: "X / Enter", value: "Confirm / Action" },
+            { label: "Circle / Esc / O", value: "Back / Cancel" },
+            { label: "Triangle / T", value: "Options / Version Info" },
+            { label: "Square / Q", value: "Toggle CRT Display" },
+            { label: "D-Pad / Arrow Keys / WASD", value: "Navigate Grid" }
+        ]
+    }
 ];
 
 let versionSelectedIndex = 0;
@@ -57,9 +67,17 @@ function createVersionInfoScreen() {
                 <div id="version-list-container" class="version-list"></div>
             </div>
 
-            <div id="version-dynamic-footer" class="version-footer">
-                <!-- Footer populated dynamically by renderVersionList -->
+            <div id="cv-preview-panel" style="position: absolute; left: 6%; top: 28%; width: 38%; bottom: 18%; background: rgba(255,255,255,0.03); border: 1px dashed rgba(110,142,150,0.3); padding: 20px; font-size: 0.75em; color: #aaa; overflow: hidden; display: none; line-height: 1.4;">
+                <div style="color: #62c3d0; font-weight: bold; margin-bottom: 8px; border-bottom: 1px solid rgba(98,195,208,0.2); padding-bottom: 4px;">DOCUMENT PREVIEW</div>
+                <div><strong>IAN THABANI MADEKUFAMBA</strong></div>
+                <div style="font-size: 0.9em; margin-bottom: 12px; color: #6e8e96;">Design Engineer / Software Developer</div>
+                <p style="margin-bottom: 8px;">• Core focus on React, Next.js, Expo, Supabase, and offline-first mobile infrastructures.</p>
+                <p style="margin-bottom: 8px;">• Projects include ClariFi (Finance OS), D.A.V.E Agentic Engine, and Level Up Aviation systems.</p>
+                <p>• Seeking impactful engineering challenges combining heavy systems architecture with tactical user experiences.</p>
             </div>
+
+            <div id="version-dynamic-footer" class="version-footer">
+                </div>
         </div>
     `;
 
@@ -91,6 +109,17 @@ function renderVersionList() {
     });
 
     container.innerHTML = html;
+
+    // Handle interactive visibility of the document preview pane
+    const previewPanel = document.getElementById("cv-preview-panel");
+    if (previewPanel) {
+        const currentItem = itemsToRender[versionSelectedIndex];
+        if (versionCurrentView === "SUB" && currentItem && currentItem.action === "DOWNLOAD_CV") {
+            previewPanel.style.display = "block";
+        } else {
+            previewPanel.style.display = "none";
+        }
+    }
 
     // Update Header and Footer based on View State
     if (versionCurrentView === "MAIN") {
@@ -176,10 +205,21 @@ window.confirmVersionInfoSelection = function () {
             window.AudioManager.playSFX("assets/audio/sfx/tick.mp3");
         }
     } else {
-        // We are in the SUB menu. Check if the item has options.
+        // We are in the SUB menu. Check if the item has options or actions.
         const currentItem = VERSION_ITEMS[versionParentIndex].subItems[versionSelectedIndex];
 
-        if (currentItem && currentItem.options) {
+        if (currentItem && currentItem.action === "DOWNLOAD_CV") {
+            window.AudioManager.playSFX("assets/audio/sfx/select.mp3");
+            
+            if (window.showTemporaryPhaseToast) {
+                window.showTemporaryPhaseToast("Downloading Curriculum Vitae...");
+            }
+            
+            // Using window.open is the most reliable way to force a PDF action without browser blocking
+            window.open("assets/documents/Ian_Madez_CV.pdf", "_blank");
+            return;
+            
+        } else if (currentItem && currentItem.options) {
             // Toggle Edit Mode
             versionIsEditing = !versionIsEditing;
             renderVersionList();
@@ -188,11 +228,9 @@ window.confirmVersionInfoSelection = function () {
             // If they just confirmed a change, log it or apply it to AppState here
             if (!versionIsEditing) {
                 console.log(`Setting ${currentItem.label} applied: ${currentItem.options[currentItem.activeIndex]}`);
-                // Example: window.AppState.updateSetting(currentItem.label, currentItem.options[currentItem.activeIndex]);
             }
         } else {
-            // Item is static text (like your CV info), cannot be edited.
-            // Future feature: Open the "About Me" overlay if they click Dev's Summary info.
+            // Item is static text, cannot be edited.
             window.AudioManager.playSFX("assets/audio/sfx/tick.mp3");
         }
     }

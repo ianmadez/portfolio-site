@@ -117,6 +117,26 @@ window.dispatchCommand = function (command) {
         return;
     }
 
+    if (window.AppState.screen === "NETWORK_CONFIG_GRID") {
+        switch (command) {
+            case "UP":
+            case "LEFT":
+                window.moveNetworkSelection(-1);
+                break;
+            case "DOWN":
+            case "RIGHT":
+                window.moveNetworkSelection(1);
+                break;
+            case "CONFIRM":
+                window.confirmNetworkSelection();
+                break;
+            case "BACK":
+                window.closeNetworkConfigScreen();
+                break;
+        }
+        return;
+    }
+
     if (window.AppState.screen === "SYSTEM_CONFIG") {
         if (window.AppState.systemConfigEditing) {
             switch (command) {
@@ -197,8 +217,8 @@ window.attachInputMapper = function () {
     if (window.__ps2InputMapperAttached) return;
     window.__ps2InputMapperAttached = true;
 
-    document.addEventListener("keydown", event => {
-        if (!["BIOS_BROWSER", "MEMORY_CARD_IDLE", "MEMORY_CARD_GRID", "PROJECT_OPTIONS", "SYSTEM_CONFIG", "VERSION_INFO"].includes(window.AppState.screen)) return;
+    document.addEventListener("keydown", function (event) {
+        if (!["BIOS_BROWSER", "MEMORY_CARD_IDLE", "MEMORY_CARD_GRID", "NETWORK_CONFIG_GRID", "PROJECT_OPTIONS", "SYSTEM_CONFIG", "VERSION_INFO"].includes(window.AppState.screen)) return;
 
         const key = event.key.toLowerCase();
 
