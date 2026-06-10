@@ -37,102 +37,94 @@
         });
 
         tl
-            .set(powerBtn, {
-                autoAlpha: 0,
-                scale: 0.75
-            }, 0)
+            .set(powerBtn, { autoAlpha: 0, scale: 0.75 }, 0)
 
+            // 1. SHOW LEGAL WARNING FIRST (0.0s to 3.5s)
+            .add(() => {
+                const warning = document.getElementById("legal-warning");
+                if (warning) warning.classList.remove("hidden");
+            }, 0)
+            .fromTo("#legal-warning", { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.5 }, 0)
+            
+            .to("#legal-warning", { autoAlpha: 0, duration: 0.5, onComplete: () => {
+                const warning = document.getElementById("legal-warning");
+                if (warning) warning.classList.add("hidden");
+            }}, 3.5)
+
+            // 2. TRIGGER ORIGINAL PS2 BOOT (Shifted to start at 4.0s)
             .add(() => {
                 window.AudioManager.playBootNoise();
-
-                if (typeof window.triggerBootSequence === "function") {
-                    window.triggerBootSequence();
-                }
-            }, 0)
+                if (typeof window.triggerBootSequence === "function") window.triggerBootSequence();
+            }, 4.0)
 
             .add(() => {
                 heroText.classList.remove("hidden");
                 gsap.set(heroText, { visibility: "visible" });
-            }, 0.8)
+            }, 4.8)
 
             .fromTo(heroText,
                 { autoAlpha: 0, scale: 0.96, filter: "blur(8px)" },
                 { autoAlpha: 1, scale: 1, filter: "blur(0px)", duration: 0.8, ease: "power2.out" },
-                0.8
+                4.8
             )
 
             .to(heroText, {
-                autoAlpha: 0,
-                filter: "blur(8px)",
-                duration: 0.9,
-                ease: "power2.inOut",
+                autoAlpha: 0, filter: "blur(8px)", duration: 0.9, ease: "power2.inOut",
                 onComplete: () => heroText.classList.add("hidden")
-            }, 5.0)
+            }, 9.0)
 
+            // Towers run for their exact original 16.3s duration
             .to(window.PS2BootScene, {
-                towerSpeed: 0.35,
-                duration: 16.3,
-                ease: "power2.in"
-            }, 0)
+                towerSpeed: 0.35, duration: 16.3, ease: "power2.in"
+            }, 4.0)
 
+            // 3. WOOMP CAMERA AND HERO TEXT SLAM (4.0s start + 16.3s delay = 20.3s)
             .add(() => {
-                if (typeof window.hideBootTowers === "function") {
-                    window.hideBootTowers();
-                }
-
-                if (typeof window.triggerWoompCamera === "function") {
-                    window.triggerWoompCamera();
-                }
-            }, 16.3)
+                if (typeof window.hideBootTowers === "function") window.hideBootTowers();
+                if (typeof window.triggerWoompCamera === "function") window.triggerWoompCamera();
+            }, 20.3)
 
             .fromTo(textContainer,
-                {
-                    autoAlpha: 0,
-                    scale: 2.15,
-                    y: 0,
-                    filter: "blur(6px)"
-                },
-                {
-                    autoAlpha: 1,
-                    scale: 1,
-                    y: 0,
-                    filter: "blur(0px)",
-                    duration: 0.22,
-                    ease: "power4.out",
-                    force3D: true
-                },
-                16.3
+                { autoAlpha: 0, scale: 2.15, y: 0, filter: "blur(6px)" },
+                { autoAlpha: 1, scale: 1, y: 0, filter: "blur(0px)", duration: 0.22, ease: "power4.out", force3D: true },
+                20.3
             )
 
             .to(textContainer, {
-                y: 8,
-                duration: 2.5,
-                repeat: -1,
-                yoyo: true,
-                ease: "sine.inOut"
-            }, 16.5)
+                y: 8, duration: 2.5, repeat: -1, yoyo: true, ease: "sine.inOut"
+            }, 20.5)
 
+            // 4. TRANSITION TO PHASE 2 BROWSER HUB
             .add(() => {
-                if (typeof window.transitionToPhase2 === "function") {
-                    window.transitionToPhase2();
-                }
-
+                if (typeof window.transitionToPhase2 === "function") window.transitionToPhase2();
                 window.AudioManager.setBGMState("BIOS");
 
                 const thisSession = bootSessionId;
                 browserRevealCall = gsap.delayedCall(8.5, () => {
                     if (!window.__bootSessionSkipped && bootSessionId === thisSession) {
                         window.showBrowserMenu();
+                        
+                        // Fire the Controls Toast
+                        const toast = document.getElementById("controls-toast");
+                        if (toast) {
+                            toast.classList.remove("hidden");
+                            gsap.fromTo(toast, 
+                                { autoAlpha: 0, y: 10 }, 
+                                { autoAlpha: 1, y: 0, duration: 0.8, delay: 0.5 }
+                            );
+                            gsap.to(toast, { 
+                                autoAlpha: 0, y: 10, duration: 0.8, delay: 8.5, /* Stays 2 seconds longer */
+                                onComplete: () => toast.classList.add("hidden") 
+                            });
+                        }
                     }
                 });
-            }, 18.0)
+            }, 22.0)
 
             .to(textContainer, {
-                opacity: 0,
-                duration: 1.2,
-                ease: "power2.inOut",
+                opacity: 0, duration: 1.2, ease: "power2.inOut",
                 onComplete: () => textContainer.classList.add("hidden")
-            }, 21.8);
+            }, 25.8);
 
         return tl;
     }
@@ -224,11 +216,8 @@
             }
 
             gsap.killTweensOf([
-                heroText,
-                textContainer,
-                introSkipHint,
-                "#boot-canvas",
-                "#browser-menu"
+                heroText, textContainer, introSkipHint, "#boot-canvas", "#browser-menu", 
+                "#legal-warning", "#controls-toast"
             ]);
 
             if (window.AudioManager.bootNoise) {
@@ -258,6 +247,20 @@
 
             window.AudioManager.setBGMState("BIOS");
             window.showBrowserMenu();
+            
+            // Fire the Controls Toast when skipping straight to menu
+            const toast = document.getElementById("controls-toast");
+            if (toast) {
+                toast.classList.remove("hidden");
+                gsap.fromTo(toast, 
+                    { autoAlpha: 0, y: 10 }, 
+                    { autoAlpha: 1, y: 0, duration: 0.8, delay: 0.5 }
+                );
+                gsap.to(toast, { 
+                    autoAlpha: 0, y: 10, duration: 0.8, delay: 8.5, 
+                    onComplete: () => toast.classList.add("hidden") 
+                });
+            }
         }
 
         function resetBootForPowerButton() {
@@ -271,14 +274,8 @@
             }
 
             gsap.killTweensOf([
-                heroText,
-                textContainer,
-                introSkipHint,
-                powerBtn,
-                "#boot-canvas",
-                "#browser-menu",
-                "#memory-card-screen",
-                "#project-detail-screen"
+                heroText, textContainer, introSkipHint, powerBtn, "#boot-canvas", "#browser-menu", 
+                "#memory-card-screen", "#project-detail-screen", "#legal-warning", "#controls-toast"
             ]);
 
             bootTimeline = null;
@@ -289,7 +286,13 @@
                 window.resetBootSceneForReplay();
             }
 
-            // Hide all secondary screens
+            // Hide all secondary screens and toasts
+            const toast = document.getElementById("controls-toast");
+            if (toast) {
+                toast.classList.add("hidden");
+                gsap.set(toast, { autoAlpha: 0, y: 10, clearProps: "all" });
+            }
+
             const browserMenu = document.getElementById("browser-menu");
             if (browserMenu) {
                 browserMenu.classList.add("hidden");

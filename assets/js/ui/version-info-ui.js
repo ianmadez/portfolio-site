@@ -202,6 +202,13 @@ window.confirmVersionInfoSelection = function () {
             renderVersionList();
             window.AudioManager.playSFX("assets/audio/sfx/select.mp3");
         } else {
+            // Intercept and open the custom 3D music player engine scene
+            if (currentItem && currentItem.label === "CD Player") {
+                if (typeof window.openCDPlayerScreen === "function") {
+                    window.openCDPlayerScreen();
+                }
+                return;
+            }
             window.AudioManager.playSFX("assets/audio/sfx/tick.mp3");
         }
     } else {
@@ -210,15 +217,15 @@ window.confirmVersionInfoSelection = function () {
 
         if (currentItem && currentItem.action === "DOWNLOAD_CV") {
             window.AudioManager.playSFX("assets/audio/sfx/select.mp3");
-            
+
             if (window.showTemporaryPhaseToast) {
                 window.showTemporaryPhaseToast("Downloading Curriculum Vitae...");
             }
-            
+
             // Using window.open is the most reliable way to force a PDF action without browser blocking
             window.open("assets/documents/Ian_Madez_CV.pdf", "_blank");
             return;
-            
+
         } else if (currentItem && currentItem.options) {
             // Toggle Edit Mode
             versionIsEditing = !versionIsEditing;

@@ -22,6 +22,22 @@
 
     <!-- PHASE 1: BOOT SEQUENCE -->
     <div id="boot-container">
+
+        <!-- LEGAL WARNING / ANTI-PIRACY SCREEN -->
+        <div id="legal-warning" class="hidden">
+            <h2 class="warning-title">DISCLAIMER</h2>
+            <p>This interactive experience is a fan-made portfolio project. It is not affiliated with, authorized, or endorsed by Sony Computer Entertainment Inc.</p>
+            <p>All PlayStation® trademarks, UI designs, and related properties are the intellectual property of their respective owners.</p>
+            <p>Fair Use intended for educational and demonstrative purposes.</p>
+        </div>
+
+        <!-- ONBOARDING CONTROLS TOAST -->
+        <div id="controls-toast" class="hidden">
+            <div class="control-item"><span>W A S D</span> / <span>ARROWS</span> Navigate</div>
+            <div class="control-item"><span>ENTER</span> / <span>X</span> Confirm</div>
+            <div class="control-item"><span>ESC</span> / <span>O</span> Back</div>
+        </div>
+
         <!-- Three.js Canvas will inject here -->
         <canvas id="boot-canvas"></canvas>
         
@@ -52,6 +68,7 @@
     <script src="assets/js/ui/memory-card-ui.js"></script>
     <script src="assets/js/ui/project-detail-ui.js"></script>
     <script src="assets/js/ui/network-config-ui.js"></script>
+    <script src="assets/js/ui/cd-player-ui.js"></script>
     <script src="assets/js/ui/system-config-ui.js"></script>
     <script src="assets/js/three-version.js"></script>
     <script src="assets/js/ui/version-info-ui.js"></script>

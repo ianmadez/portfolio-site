@@ -117,6 +117,26 @@ window.dispatchCommand = function (command) {
         return;
     }
 
+    if (window.AppState.screen === "CD_PLAYER_GRID") {
+        switch (command) {
+            case "UP":
+            case "LEFT":
+                window.moveCDPlayerSelection(-1);
+                break;
+            case "DOWN":
+            case "RIGHT":
+                window.moveCDPlayerSelection(1);
+                break;
+            case "CONFIRM":
+                window.confirmCDPlayerSelection();
+                break;
+            case "BACK":
+                window.closeCDPlayerScreen();
+                break;
+        }
+        return;
+    }
+
     if (window.AppState.screen === "NETWORK_CONFIG_GRID") {
         switch (command) {
             case "UP":
@@ -218,7 +238,7 @@ window.attachInputMapper = function () {
     window.__ps2InputMapperAttached = true;
 
     document.addEventListener("keydown", function (event) {
-        if (!["BIOS_BROWSER", "MEMORY_CARD_IDLE", "MEMORY_CARD_GRID", "NETWORK_CONFIG_GRID", "PROJECT_OPTIONS", "SYSTEM_CONFIG", "VERSION_INFO"].includes(window.AppState.screen)) return;
+        if (!["BIOS_BROWSER", "MEMORY_CARD_IDLE", "MEMORY_CARD_GRID", "NETWORK_CONFIG_GRID", "CD_PLAYER_GRID", "PROJECT_OPTIONS", "SYSTEM_CONFIG", "VERSION_INFO"].includes(window.AppState.screen)) return;
 
         const key = event.key.toLowerCase();
 

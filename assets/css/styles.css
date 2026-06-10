@@ -131,6 +131,68 @@ body {
 }
 
 /* =========================================
+   LEGAL WARNING SCREEN
+   ========================================= */
+#legal-warning {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: black;
+    color: #ccc;
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 10%;
+    opacity: 0;
+}
+.warning-title {
+    color: #d22; /* Aggressive Red */
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin-bottom: 25px;
+    letter-spacing: 2px;
+}
+#legal-warning p {
+    font-size: clamp(0.9rem, 1.8vw, 1.2rem);
+    margin-bottom: 12px;
+    line-height: 1.5;
+    max-width: 800px;
+}
+
+/* =========================================
+   ONBOARDING CONTROLS TOAST
+   ========================================= */
+#controls-toast {
+    position: fixed;
+    bottom: calc(4% + var(--safe-bottom));
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9000;
+    background: rgba(10, 10, 15, 0.85);
+    border: 1px solid rgba(100, 150, 255, 0.2);
+    border-radius: 8px;
+    padding: 12px 24px;
+    display: flex;
+    gap: 20px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    backdrop-filter: blur(4px);
+    opacity: 0;
+    pointer-events: none; /* Let clicks pass through */
+}
+.control-item {
+    color: rgba(230, 235, 255, 0.8);
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: clamp(0.75rem, 1.2vw, 0.9rem);
+    letter-spacing: 0.05em;
+}
+.control-item span {
+    color: #6edcff;
+    font-weight: bold;
+}
+
+/* =========================================
    THE POWER BUTTON (Animated & Reactive)
    ========================================= */
 .ps-power-logo {
@@ -289,14 +351,25 @@ body {
 
 .browser-options {
     position: absolute;
-    left: 52%;
-    top: 45.5%;
+    left: 54%; /* 👈 Set this as your base spine line anchor */
+    top: 46%;
     transform: translateY(-50%);
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     line-height: 0.92;
     letter-spacing: -2px;
+}
+
+/* INDIVIDUAL POSITIONING CONTROLS */
+
+.browser-option[data-browser-option="browser"] {
+    margin-left: 180px; /* 👈 Nudge "Browser" independently left or right */
+    margin-bottom: -4px; /* Controls the exact vertical gap between the two options */
+}
+
+.browser-option[data-browser-option="system"] {
+    margin-left: 0px; /* 👈 Nudge "System Configuration" independently left or right */
 }
 
 .browser-option {
@@ -384,11 +457,12 @@ body {
 }
 
 .browser-footer .footer-item:first-child {
-    left: 32%;
+    left: 36%; /* 👈 Perfectly balances the "Enter" action label under the center axis */
 }
 
 .browser-footer .footer-item.version-item {
-    left: 57%;
+    left: auto; /* Clear the old left rule cascade */
+    right: 16%; /* 👈 Flushes the "Version" prompt straight out to the right boundary edge */
 }
 
 .browser-footer .footer-item:hover {
@@ -1561,10 +1635,21 @@ body {
     }
 
     .browser-options {
-        left: 11%;
+        left: 12%; 
         top: 43%;
-        transform: none;
+        transform: translateY(-50%);
+        align-items: flex-start;
         letter-spacing: -1px;
+    }
+
+    /* Mobile individual tweaks if needed */
+    .browser-option[data-browser-option="browser"] {
+        margin-left: 20px; 
+        margin-bottom: 6px;
+    }
+
+    .browser-option[data-browser-option="system"] {
+        margin-left: 0px;
     }
 
     .browser-option {
@@ -1573,11 +1658,12 @@ body {
     }
 
     .browser-footer .footer-item:first-child {
-        left: 14%;
+        left: 16%;
     }
 
     .browser-footer .footer-item.version-item {
-        left: 55%;
+        left: auto;
+        right: 16%;
     }
 
     .browser-footer .footer-item {
