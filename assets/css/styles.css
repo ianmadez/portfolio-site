@@ -1220,6 +1220,108 @@ body {
 }
 
 /* =========================================
+   CASE STUDY VIEWER & LOADING SCREEN
+   ========================================= */
+
+#ps2-loading-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 900;
+    background-color: #000;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding: 8%;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.loading-text-blink {
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    font-size: clamp(1.2rem, 2.5vw, 2rem);
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.8);
+    letter-spacing: 2px;
+    animation: loadingBlink 1.2s infinite steps(2, end);
+}
+
+@keyframes loadingBlink {
+    0%, 49% { opacity: 1; }
+    50%, 100% { opacity: 0; }
+}
+
+#case-study-viewer {
+    position: fixed;
+    inset: 0;
+    z-index: 150;
+    background: rgba(10, 12, 15, 0.95);
+    backdrop-filter: blur(12px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.case-study-container {
+    width: 85%;
+    max-width: 800px;
+    height: 75vh;
+    border: 1px solid rgba(110, 220, 255, 0.3);
+    background: linear-gradient(180deg, rgba(15, 20, 30, 0.9) 0%, rgba(5, 8, 12, 0.95) 100%);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(110, 220, 255, 0.05);
+    display: flex;
+    flex-direction: column;
+}
+
+.cs-header {
+    padding: 15px 25px;
+    border-bottom: 1px solid rgba(110, 220, 255, 0.2);
+    font-family: 'Helvetica', sans-serif;
+    color: #6edcff;
+    font-size: 1.1rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: space-between;
+}
+
+.cs-content-area {
+    padding: 30px 40px;
+    overflow-y: auto;
+    flex: 1;
+    color: #c8d6e5;
+    font-family: 'Courier New', Courier, monospace; /* Tech log vibe */
+    font-size: 1rem;
+    line-height: 1.6;
+    scrollbar-width: none; /* Hide default scrollbars */
+}
+.cs-content-area::-webkit-scrollbar { display: none; }
+
+/* Case Study Internal Typography */
+.cs-content-area h3 {
+    color: #fff;
+    margin-top: 25px;
+    margin-bottom: 15px;
+    border-bottom: 1px dashed rgba(255,255,255,0.2);
+    padding-bottom: 5px;
+    font-size: 1.2rem;
+}
+.cs-content-area p { margin-bottom: 15px; }
+.cs-content-area ul { margin-bottom: 15px; padding-left: 20px; }
+.cs-content-area li { margin-bottom: 8px; color: #8395a7; }
+.cs-content-area strong { color: #f2f2f2; }
+
+.cs-footer {
+    padding: 15px 25px;
+    border-top: 1px solid rgba(110, 220, 255, 0.2);
+    display: flex;
+    justify-content: flex-end;
+    gap: 30px;
+}
+
+/* =========================================
    PHASE 3A: SYSTEM CONFIGURATION
    ========================================= */
 

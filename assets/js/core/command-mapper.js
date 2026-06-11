@@ -63,6 +63,21 @@ window.dispatchCommand = function (command) {
         return;
     }
 
+    if (window.AppState.screen === "CASE_STUDY_VIEWER") {
+        switch (command) {
+            case "UP":
+                window.scrollCaseStudyViewer(-1);
+                break;
+            case "DOWN":
+                window.scrollCaseStudyViewer(1);
+                break;
+            case "BACK":
+                window.closeCaseStudyViewer();
+                break;
+        }
+        return;
+    }
+
     if (window.AppState.screen === "PROJECT_OPTIONS") {
         switch (command) {
             case "UP":
@@ -119,13 +134,17 @@ window.dispatchCommand = function (command) {
 
     if (window.AppState.screen === "CD_PLAYER_GRID") {
         switch (command) {
-            case "UP":
             case "LEFT":
                 window.moveCDPlayerSelection(-1);
                 break;
-            case "DOWN":
             case "RIGHT":
                 window.moveCDPlayerSelection(1);
+                break;
+            case "UP":
+                window.handleCDPlayerVertical(-1); // Sent to new vertical handler
+                break;
+            case "DOWN":
+                window.handleCDPlayerVertical(1);  // Sent to new vertical handler
                 break;
             case "CONFIRM":
                 window.confirmCDPlayerSelection();
@@ -238,7 +257,7 @@ window.attachInputMapper = function () {
     window.__ps2InputMapperAttached = true;
 
     document.addEventListener("keydown", function (event) {
-        if (!["BIOS_BROWSER", "MEMORY_CARD_IDLE", "MEMORY_CARD_GRID", "NETWORK_CONFIG_GRID", "CD_PLAYER_GRID", "PROJECT_OPTIONS", "SYSTEM_CONFIG", "VERSION_INFO"].includes(window.AppState.screen)) return;
+        if (!["BIOS_BROWSER", "MEMORY_CARD_IDLE", "MEMORY_CARD_GRID", "NETWORK_CONFIG_GRID", "CD_PLAYER_GRID", "PROJECT_OPTIONS", "CASE_STUDY_VIEWER", "SYSTEM_CONFIG", "VERSION_INFO"].includes(window.AppState.screen)) return;
 
         const key = event.key.toLowerCase();
 
@@ -284,7 +303,7 @@ window.attachInputMapper = function () {
     });
 
     document.addEventListener("pointerdown", event => {
-        if (!["BIOS_BROWSER", "MEMORY_CARD_IDLE", "MEMORY_CARD_GRID", "PROJECT_OPTIONS", "SYSTEM_CONFIG", "VERSION_INFO"].includes(window.AppState.screen)) return;
+        if (!["BIOS_BROWSER", "MEMORY_CARD_IDLE", "MEMORY_CARD_GRID", "PROJECT_OPTIONS", "CASE_STUDY_VIEWER", "SYSTEM_CONFIG", "VERSION_INFO"].includes(window.AppState.screen)) return;
 
         const commandButton = event.target.closest("[data-command]");
         if (commandButton) {
@@ -338,7 +357,7 @@ window.attachInputMapper = function () {
     });
 
     document.addEventListener("mouseover", event => {
-        if (!["BIOS_BROWSER", "MEMORY_CARD_GRID", "SYSTEM_CONFIG", "VERSION_INFO"].includes(window.AppState.screen)) return;
+        if (!["BIOS_BROWSER", "MEMORY_CARD_GRID", "SYSTEM_CONFIG", "VERSION_INFO", "PROJECT_OPTIONS", "CASE_STUDY_VIEWER"].includes(window.AppState.screen)) return;
 
         const projectOptionButton = event.target.closest("[data-project-option-index]");
         if (projectOptionButton && window.AppState.screen === "PROJECT_OPTIONS") {

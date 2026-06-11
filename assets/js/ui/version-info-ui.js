@@ -188,6 +188,14 @@ window.enterVersionInfoSubMenu = function () {
         renderVersionList();
         window.AudioManager.playSFX("assets/audio/sfx/select.mp3");
     } else {
+        // Intercept and open the CD Player (same as CONFIRM does)
+        if (currentItem && currentItem.label === "CD Player") {
+            window.AudioManager.playSFX("assets/audio/sfx/select.mp3");
+            if (typeof window.openCDPlayerScreen === "function") {
+                window.openCDPlayerScreen();
+            }
+            return;
+        }
         window.AudioManager.playSFX("assets/audio/sfx/tick.mp3");
     }
 };
@@ -204,6 +212,7 @@ window.confirmVersionInfoSelection = function () {
         } else {
             // Intercept and open the custom 3D music player engine scene
             if (currentItem && currentItem.label === "CD Player") {
+                window.AudioManager.playSFX("assets/audio/sfx/select.mp3");
                 if (typeof window.openCDPlayerScreen === "function") {
                     window.openCDPlayerScreen();
                 }
