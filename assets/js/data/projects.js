@@ -31,7 +31,7 @@ window.PROJECT_SAVES = [
   },
   {
     id: "deadspace",
-    title: "deadspace",
+    title: "deadspace / space the Menace",
     subtitle: "Music Profile",
     type: "website",
     icon: "assets/images/ui/browser-save.png",
