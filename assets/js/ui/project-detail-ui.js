@@ -63,7 +63,7 @@ const CASE_STUDY_DB = {
         <h3>IV. ASYNC TELEMETRY GUI</h3>
         <p>A multi-threaded <code>CustomTkinter</code> GUI runs parallel to the asynchronous execution engine, mapping real-time reasoning JSON and tool outputs into an expandable accordion-card UI without blocking the agent’s core compute loop.</p>
     `,
-    "deadspace": `
+    "deadspace / space the Menace": `
         <p><strong>MISSION:</strong> Create a deeply personal, digital sanctuary for intimate musical expression and a second social media for fans.</p>
         <h3>I. TECHNICAL DEPLOYMENT</h3>
         <ul>
@@ -93,7 +93,7 @@ const CASE_STUDY_DB = {
         <h3>II. LLM ANALYTICS</h3>
         <p>Integrates with external API endpoints to contextualize the data, generating automated PDF reports via <code>fpdf</code> that highlight growth vectors and content gaps.</p>
     `,
-    "nanny-union": `
+    "the-nanny-union-agency": `
         <p><strong>MISSION:</strong> Project a premium, high-trust digital storefront for a discerning childcare agency targeting high-net-worth families.</p>
         <h3>I. INFRASTRUCTURE</h3>
         <ul>

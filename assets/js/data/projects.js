@@ -10,7 +10,7 @@ window.PROJECT_SAVES = [
     status: "Live",
     liveUrl: "https://clarifi-site.vercel.app/",
     repoUrl: null,
-    description: "An offline-first financial tracker built for independent creators, solo operators, and sovereign makers. Stop renting your own data.",
+    description: "An offline-first financial tracker built for budding entrepreneurs, independent creators, solo operators, and sovereign makers. Stop renting your own data.",
     stack: ["React", "TypeScript", "Tailwind CSS", "Lucide React", "React Hooks", "Custom Hooks", "localStorage"],
     options: ["Case Study", "Live Site"]
   },
@@ -30,7 +30,7 @@ window.PROJECT_SAVES = [
     options: ["Case Study", "Repository", "Architecture"]
   },
   {
-    id: "deadspace",
+    id: "deadspace / space the Menace",
     title: "deadspace / space the Menace",
     subtitle: "Music Profile",
     type: "website",
@@ -75,8 +75,8 @@ window.PROJECT_SAVES = [
     options: ["Case Study"]
   },
   {
-    id: "nanny-union",
-    title: "The Nanny Union",
+    id: "the-nanny-union-agency",
+    title: "The Nanny Union Agency",
     subtitle: "Premium Agency Site",
     type: "website",
     icon: "assets/images/ui/browser-save.png",
