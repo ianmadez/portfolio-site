@@ -515,7 +515,7 @@ function injectCaseStudyDOM() {
                         <span style="color: #aaa; font-weight: bold; font-size: 1.2rem;">▲▼</span>
                         <span style="color: #ccc; margin-left: 5px;">Scroll</span>
                     </div>
-                    <div class="v-footer-item" id="btn-close-cs">
+                    <div class="v-footer-item" id="btn-close-cs" data-command="BACK">
                         <img src="assets/images/ui/circle.png" class="footer-button-icon" alt="Circle" style="width: 24px;">
                         <span style="color: #ccc; font-weight: bold;">Back</span>
                     </div>
@@ -536,10 +536,10 @@ function openCaseStudyViewer(project, documentType) {
 
     // Populate Data
     document.getElementById("cs-header-title").textContent = `SYS.LOG :: ${project.id.toUpperCase()} // ${documentType.toUpperCase()}`;
-    
+
     // Create a targeted database key if they asked for Architecture (e.g., "dave_architecture")
     const dbKey = documentType === "Architecture" ? `${project.id}_architecture` : project.id;
-    
+
     // Fetch targeted doc -> fallback to standard case study -> fallback to default log
     contentArea.innerHTML = CASE_STUDY_DB[dbKey] || CASE_STUDY_DB[project.id] || CASE_STUDY_DB["default"];
     contentArea.scrollTop = 0; // Reset scroll
